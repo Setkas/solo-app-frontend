@@ -4,16 +4,24 @@ import {TranslateModule, TranslateLoader, MissingTranslationHandler} from '@ngx-
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {RouterModule} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
 import {HttpLoaderFactory, CustomMissingTranslationHandler} from "./translator";
 import {AppComponent} from './app-component';
 import {Router} from "./router";
 import {environment} from "../environments/environment";
 import {ReplaceValuePipe, ConvertNumberPipe} from "../pipes";
-import {LoggerProvider} from "../providers";
-import {FlashComponent, FlashProvider, LoaderComponent, LoaderProvider, SlideToggleComponent} from "../components";
-import {HomePage, NotFoundPage} from "../pages";
+import {LoggerProvider, AuthProvider} from "../providers";
+import {
+  FlashComponent,
+  FlashProvider,
+  LoaderComponent,
+  LoaderProvider,
+  SlideToggleComponent,
+  MenuComponent
+} from "../components";
+import {HomePage, NotFoundPage, LoginPage} from "../pages";
 import {Variables} from "./variables";
-import {MenuComponent} from "../components/menu-component/menu-component";
+import {AuthGuard} from "../guards";
 
 @NgModule({
   declarations: [
@@ -24,6 +32,7 @@ import {MenuComponent} from "../components/menu-component/menu-component";
     LoaderComponent,
     SlideToggleComponent,
     HomePage,
+    LoginPage,
     NotFoundPage,
     MenuComponent
   ],
@@ -49,11 +58,14 @@ import {MenuComponent} from "../components/menu-component/menu-component";
     })
   ],
   providers: [
+    CookieService,
     LoggerProvider,
     ConvertNumberPipe,
     ReplaceValuePipe,
     FlashProvider,
-    LoaderProvider
+    LoaderProvider,
+    AuthProvider,
+    AuthGuard
   ],
   bootstrap: [
     AppComponent

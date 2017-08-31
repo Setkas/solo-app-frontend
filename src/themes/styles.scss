@@ -1,7 +1,10 @@
 @import "imports";
+@import "common/icons";
+@import "common/fonts";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 html, body {
   height: 100%;
   overflow: hidden;
+  font-family: 'Roboto', Arial, sans-serif;
 }

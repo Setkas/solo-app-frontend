@@ -1,0 +1,208 @@
+$icomoon-font-path: "../assets/fonts" !default;
+
+$sa-tooth-baby-toggle: "\e900";
+$sa-tooth-baby: "\e901";
+$sa-blood: "\e902";
+$sa-tooth-bridge-path1: "\e903";
+$sa-tooth-bridge-path2: "\e904";
+$sa-tooth-bridge-path3: "\e905";
+$sa-tooth-bridge-left-path1: "\e906";
+$sa-tooth-bridge-left-path2: "\e907";
+$sa-tooth-bridge-left-path3: "\e908";
+$sa-tooth-bridge-right-path1: "\e909";
+$sa-tooth-bridge-right-path2: "\e90a";
+$sa-tooth-bridge-right-path3: "\e90b";
+$sa-tooth-crown-path1: "\e90c";
+$sa-tooth-crown-path2: "\e90d";
+$sa-edit: "\e90e";
+$sa-tooth-eights-toggle: "\e90f";
+$sa-home: "\e910";
+$sa-tooth-implant: "\e911";
+$sa-logout: "\e912";
+$sa-person: "\e913";
+$sa-settings: "\e914";
+$sa-stix: "\e915";
+$sa-tooth-gap: "\e916";
+$sa-tooth: "\e917";
+$sa-tooth-missing: "\e918";
+$sa-tooth-present: "\e919";
+
+@font-face {
+  font-family: 'sloapp';
+  src:  url('#{$icomoon-font-path}/sloapp.eot?iqyf4e');
+  src:  url('#{$icomoon-font-path}/sloapp.eot?iqyf4e#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/sloapp.ttf?iqyf4e') format('truetype'),
+    url('#{$icomoon-font-path}/sloapp.woff?iqyf4e') format('woff'),
+    url('#{$icomoon-font-path}/sloapp.svg?iqyf4e#sloapp') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="sa-"], [class*=" sa-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'sloapp' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.sa-tooth-baby-toggle {
+  &:before {
+    content: $sa-tooth-baby-toggle;
+  }
+}
+.sa-tooth-baby {
+  &:before {
+    content: $sa-tooth-baby;
+  }
+}
+.sa-blood {
+  &:before {
+    content: $sa-blood;
+  }
+}
+.sa-tooth-bridge .path1 {
+  &:before {
+    content: $sa-tooth-bridge-path1;
+    color: rgb(255, 255, 255);
+    opacity: 0.5;
+  }
+}
+.sa-tooth-bridge .path2 {
+  &:before {
+    content: $sa-tooth-bridge-path2;
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+  }
+}
+.sa-tooth-bridge .path3 {
+  &:before {
+    content: $sa-tooth-bridge-path3;
+    margin-left: -1em;
+    color: none;
+  }
+}
+.sa-tooth-bridge-left .path1 {
+  &:before {
+    content: $sa-tooth-bridge-left-path1;
+    color: rgb(255, 255, 255);
+    opacity: 0.5;
+  }
+}
+.sa-tooth-bridge-left .path2 {
+  &:before {
+    content: $sa-tooth-bridge-left-path2;
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+  }
+}
+.sa-tooth-bridge-left .path3 {
+  &:before {
+    content: $sa-tooth-bridge-left-path3;
+    margin-left: -1em;
+    color: none;
+  }
+}
+.sa-tooth-bridge-right .path1 {
+  &:before {
+    content: $sa-tooth-bridge-right-path1;
+    color: rgb(255, 255, 255);
+    opacity: 0.5;
+  }
+}
+.sa-tooth-bridge-right .path2 {
+  &:before {
+    content: $sa-tooth-bridge-right-path2;
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+  }
+}
+.sa-tooth-bridge-right .path3 {
+  &:before {
+    content: $sa-tooth-bridge-right-path3;
+    margin-left: -1em;
+    color: none;
+  }
+}
+.sa-tooth-crown .path1 {
+  &:before {
+    content: $sa-tooth-crown-path1;
+    color: rgb(255, 255, 255);
+  }
+}
+.sa-tooth-crown .path2 {
+  &:before {
+    content: $sa-tooth-crown-path2;
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+    opacity: 0.5;
+  }
+}
+.sa-edit {
+  &:before {
+    content: $sa-edit;
+  }
+}
+.sa-tooth-eights-toggle {
+  &:before {
+    content: $sa-tooth-eights-toggle;
+  }
+}
+.sa-home {
+  &:before {
+    content: $sa-home;
+  }
+}
+.sa-tooth-implant {
+  &:before {
+    content: $sa-tooth-implant;
+  }
+}
+.sa-logout {
+  &:before {
+    content: $sa-logout;
+  }
+}
+.sa-person {
+  &:before {
+    content: $sa-person;
+  }
+}
+.sa-settings {
+  &:before {
+    content: $sa-settings;
+  }
+}
+.sa-stix {
+  &:before {
+    content: $sa-stix;
+  }
+}
+.sa-tooth-gap {
+  &:before {
+    content: $sa-tooth-gap;
+  }
+}
+.sa-tooth {
+  &:before {
+    content: $sa-tooth;
+  }
+}
+.sa-tooth-missing {
+  &:before {
+    content: $sa-tooth-missing;
+  }
+}
+.sa-tooth-present {
+  &:before {
+    content: $sa-tooth-present;
+  }
+}
+

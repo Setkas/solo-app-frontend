@@ -1,14 +1,22 @@
 import {Routes} from "@angular/router";
-import {HomePage, NotFoundPage} from "../pages/";
+import {HomePage, LoginPage, NotFoundPage} from "../pages/";
+import {AuthGuard} from "../guards";
 
 export const Router: Routes = [
   {
     path: 'home',
-    component: HomePage
+    component: HomePage,
+    canActivate: [
+      AuthGuard
+    ]
+  },
+  {
+    path: 'login',
+    component: LoginPage
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {

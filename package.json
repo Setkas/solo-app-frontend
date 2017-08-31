@@ -24,6 +24,8 @@
     "bootstrap": "^4.0.0-beta",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "ngx-cookie-service": "^1.0.7",
     "popper.js": "^1.12.5",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
@@ -36,6 +38,7 @@
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/jquery": "^3.2.12",
+    "@types/moment": "^2.13.0",
     "@types/node": "~6.0.60",
     "@types/popper.js": "^1.10.0",
     "codelyzer": "~3.1.1",
