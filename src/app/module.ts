@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {FormsModule} from "@angular/forms";
 import {TranslateModule, TranslateLoader, MissingTranslationHandler} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
@@ -38,6 +39,7 @@ import {AuthGuard} from "../guards";
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

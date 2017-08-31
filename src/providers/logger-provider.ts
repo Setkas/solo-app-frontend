@@ -26,7 +26,7 @@ export class LoggerProvider {
    * @returns {boolean}
    */
   private consoleLog(type: string, message: any): boolean {
-    let allowedTypes: string[] = ['log', 'error', 'warning'];
+    let allowedTypes: string[] = ['log', 'error', 'warning', 'debug'];
 
     if (allowedTypes.indexOf(type) === -1) {
       this.consoleLog('warning', "Invalid log type detected, ignoring action...");
@@ -35,7 +35,11 @@ export class LoggerProvider {
 
     type = (type === "warning") ? "warn" : type;
 
-    console[type](message);
+    if(console[type]) {
+      console[type](message);
+    } else {
+      console.log(message);
+    }
 
     return true;
   }
@@ -65,7 +69,7 @@ export class LoggerProvider {
   static Log(...params: any[]): void {
     let log = new this();
 
-    log.logCrossRoad('log', params);
+    log.logCrossRoad('debug', params);
   }
 
   /**

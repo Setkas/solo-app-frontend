@@ -3,6 +3,14 @@
        [alt]="'general.TITLE'| translate"/>
 </div>
 
+<div class="language-box">
+  <button *ngFor="let language of languageList"
+          class="btn btn-primary btn-sm language-switch"
+          (click)="switchLanguage(language.code)">
+    {{language.name}}
+  </button>
+</div>
+
 <div class="container-fluid main-box"
      [ngClass]="{'menu-shown': isMenu}">
   <menu-component *ngIf="isMenu"></menu-component>

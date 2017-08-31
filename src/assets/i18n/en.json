@@ -6,5 +6,15 @@
     "PAGE_NOT_FOUND": "Page not Found",
     "REQUESTED_PAGE_MISSING": "Requested page was not found on this server at this time.",
     "GO_BACK": "Go Back"
+  },
+  "login": {
+    "LOGIN": "Login",
+    "PRACTICE_CODE": "Practice Code",
+    "USER_CODE": "User Code",
+    "PASSWORD": "Password",
+    "REGISTER": "Register",
+    "REGISTER_PRACTICE": "Register New Practice",
+    "REGISTER_USER": "Register New User",
+    "FORGOT_PASSWORD": "Forgot Password?"
   }
 }

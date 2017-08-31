@@ -76,3 +76,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@mixin media-sm() {
+  @media (max-width: $md-breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-md() {
+  @media (max-width: $lg-breakpoint) {
+    @content;
+  }
+}

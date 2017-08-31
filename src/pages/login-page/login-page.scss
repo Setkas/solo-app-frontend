@@ -1,5 +1,29 @@
 @import "../../themes/imports";
 
 login-page {
+  .border-column {
+    position: relative;
 
+    &:first-child:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 1em;
+      bottom: 1em;
+      right: 0;
+      left: auto;
+      width: $border-size;
+      height: auto;
+      background-color: color(dark);
+
+      @include media-sm() {
+        top: auto;
+        left: 1em;
+        right: 1em;
+        bottom: 0;
+        height: $border-size;
+        width: auto;
+      }
+    }
+  }
 }

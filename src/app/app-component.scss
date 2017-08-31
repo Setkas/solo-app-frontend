@@ -17,6 +17,7 @@ app-root {
       left: 0;
       margin: 0 1em;
       width: 20%;
+      max-width: 100%;
       min-width: 10em;
       @include transform(translate(0, -50%));
     }
@@ -26,9 +27,13 @@ app-root {
     position: relative;
     width: 75%;
     margin: 0 auto 0 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
     border-right: $border-size solid color(dark);
     border-top: $border-size solid color(dark);
     background-color: color(grey);
+    overflow-x: hidden;
+    overflow-y: auto;
     @include flex(1);
     @include border-radius(0 1em 0 0);
 
@@ -46,6 +51,44 @@ app-root {
 
     > img {
       width: 100%;
+    }
+  }
+
+  .language-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+
+    .language-switch {
+      display: inline-block;
+      @include border-radius(0 0 0.3rem 0.3rem);
+
+      +.language-switch {
+        margin-left: 0.5em;
+      }
+    }
+  }
+
+  @include media-sm() {
+    .title-box {
+      min-height: 5em;
+    }
+
+    .main-box {
+      border-right: 0;
+      width: 100%;
+      margin: 0;
+      @include border-radius(0);
+
+      &.menu-shown {
+        padding-left: 0;
+        padding-top: 3em;
+      }
+    }
+
+    .background-box {
+      display: none;
     }
   }
 }
