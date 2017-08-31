@@ -1,0 +1,10 @@
+{
+  "general": {
+    "TITLE": "Solo-App"
+  },
+  "not_found": {
+    "PAGE_NOT_FOUND": "Page not Found",
+    "REQUESTED_PAGE_MISSING": "Requested page was not found on this server at this time.",
+    "GO_BACK": "Go Back"
+  }
+}

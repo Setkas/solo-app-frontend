@@ -1,0 +1,22 @@
+<div class="row justify-content-center pt-5 pb-5">
+  <div class="col-10 col-sm-8 col-md-6 col-lg-4 text-center">
+    <h1 class="text-primary">
+      <i class="ion ion-alert-circled"></i>
+    </h1>
+
+    <h2>
+      {{"not_found.PAGE_NOT_FOUND"| translate}}
+    </h2>
+
+    <p class="text-muted">
+      {{"not_found.REQUESTED_PAGE_MISSING"| translate}}
+    </p>
+
+    <button class="btn btn-primary"
+            (click)="goBack()">
+      <i class="ion ion-arrow-return-left"></i>
+
+      {{"not_found.GO_BACK"| translate}}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="title-box">
+  <img [src]="iconImageUrl"
+       [alt]="'general.TITLE'| translate"/>
+</div>
+
+<div class="container-fluid main-box"
+     [ngClass]="{'menu-shown': isMenu}">
+  <menu-component *ngIf="isMenu"></menu-component>
+
+  <router-outlet></router-outlet>
+</div>
+
+<div class="background-box">
+  <img [src]="backgroundImageUrl"/>
+</div>

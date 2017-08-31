@@ -1,0 +1,27 @@
+$color-palette: (
+  light: #ffffff,
+  dark: #333333,
+  primary: #2177be,
+  secondary: #563d7c,
+  success: #008744,
+  warning: #ffa700,
+  danger: #d62d20,
+  info: #40e0d0,
+  grey: #f1f2f3
+);
+
+$theme-colors: (
+  primary: map_get($color-palette, primary),
+  secondary: map_get($color-palette, secondary),
+  success: map_get($color-palette, success),
+  info: map_get($color-palette, info),
+  warning: map_get($color-palette, warning),
+  danger: map_get($color-palette, danger),
+  light: map_get($color-palette, light),
+  dark: map_get($color-palette, dark)
+);
+
+$border-size: 1px;
+
+$md-breakpoint: 992px;
+$lg-breakpoint: 1200px;
