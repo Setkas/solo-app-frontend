@@ -45,7 +45,7 @@ export class AuthProvider {
 
   public login(practice: string, user: number, password: string): Promise<void> {
     return new Promise<void>((resolve: () => void, reject: (err: string) => void) => {
-      this.http.post<AuthTokenData>(Variables.apiUrl + "/Login", {
+      this.http.post<AuthTokenData>(Variables.apiUrl + "/login", {
         practice: practice,
         user: user,
         password: password
@@ -172,7 +172,7 @@ export class AuthProvider {
           "/login"
         ]);
       });
-    }, Moment().diff(time, 'ms'));
+    }, time.diff(Moment(), 'ms'));
 
     LoggerProvider.Log("[AUTH]: Session expire time interval (" + time.toISOString() + ") was started.");
   }

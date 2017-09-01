@@ -1,5 +1,5 @@
 export const Variables: {[key: string]: any} = {
-  "apiUrl": "http:/localhost/soloAppMaster/api/",
+  "apiUrl": "http://localhost/soloAppMaster/api",
   "replaceString": "###",
   "useLogs": true,
   "translator": {
