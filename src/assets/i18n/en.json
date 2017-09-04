@@ -1,6 +1,7 @@
 {
   "general": {
-    "TITLE": "Solo-App"
+    "TITLE": "Solo-App",
+    "CLOSE": "Close"
   },
   "not_found": {
     "PAGE_NOT_FOUND": "Page not Found",
@@ -15,6 +16,12 @@
     "REGISTER": "Register",
     "REGISTER_PRACTICE": "Register New Practice",
     "REGISTER_USER": "Register New User",
-    "FORGOT_PASSWORD": "Forgot Password?"
+    "FORGOT_PASSWORD": "Forgot Password?",
+    "LOGIN_FAILED": "Login Failed"
+  },
+  "error": {
+    "INVALID_PARAMETERS_PROVIDED": "Invalid data were provided to process request.",
+    "INVALID_LOGIN_DETAILS": "Invalid login details combination provided.",
+    "PRACTICE_VALIDITY_EXPIRED": "Practice is no longer valid, please contact us to extend your license."
   }
 }

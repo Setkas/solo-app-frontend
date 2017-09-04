@@ -64,7 +64,9 @@ export class AuthProvider {
       }, (error: HttpErrorResponse) => {
         this.handleHttpError(error, [401]);
 
-        reject(error.message);
+        let msg: string = (error.error && error.error.message) ? error.error.message : null;
+
+        reject(msg);
       });
     });
   }

@@ -4,3 +4,5 @@ export * from "./loader-component/loader-component";
 export * from "./loader-component/loader-provider";
 export * from "./slide-toggle-component/slide-toggle-component";
 export * from "./menu-component/menu-component";
+export * from "./modal-component/modal-component";
+export * from "./modal-component/modal-provider";

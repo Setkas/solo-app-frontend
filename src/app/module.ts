@@ -18,7 +18,9 @@ import {
   LoaderComponent,
   LoaderProvider,
   SlideToggleComponent,
-  MenuComponent
+  MenuComponent,
+  ModalComponent,
+  ModalProvider
 } from "../components";
 import {HomePage, NotFoundPage, LoginPage} from "../pages";
 import {Variables} from "./variables";
@@ -35,7 +37,8 @@ import {AuthGuard} from "../guards";
     HomePage,
     LoginPage,
     NotFoundPage,
-    MenuComponent
+    MenuComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import {AuthGuard} from "../guards";
     FlashProvider,
     LoaderProvider,
     AuthProvider,
-    AuthGuard
+    AuthGuard,
+    ModalProvider
   ],
   bootstrap: [
     AppComponent

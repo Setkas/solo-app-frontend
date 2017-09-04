@@ -1,7 +1,9 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, TemplateRef, ViewChild} from '@angular/core';
 import {AuthProvider} from "../../providers";
 import {LoaderProvider} from "../../components/loader-component/loader-provider";
 import {Router} from "@angular/router";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ModalProvider} from "../../components/modal-component/modal-provider";
 
 export interface LoginDetailsInterface {
   practice: string,
@@ -26,7 +28,8 @@ export class LoginPage {
 
   constructor(private auth: AuthProvider,
               private loader: LoaderProvider,
-              private router: Router) {
+              private router: Router,
+              private modal: ModalProvider) {
     if (this.auth.isAuthorized()) {
       this.router.navigate([
         "/home"
@@ -57,6 +60,17 @@ export class LoginPage {
       this.loader.hide();
 
       this.formData.password = "";
+
+      this.modal.show({
+        title: "login.LOGIN_FAILED",
+        content: "error." + (error || "SERVICE_FAILURE"),
+        translate: true,
+        buttons: [
+          {
+            text: "general.CLOSE"
+          }
+        ]
+      });
     });
   }
 }

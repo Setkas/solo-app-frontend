@@ -1,0 +1,24 @@
+<ng-template #modalContent let-c="close">
+  <div *ngIf="modalData !== null && modalData.title"
+       class="modal-header bg-primary">
+    <h4 class="modal-title">
+      {{modalData.title}}
+    </h4>
+  </div>
+
+  <div *ngIf="modalData !== null && modalData.content"
+       class="modal-body text-center"
+       [innerHTML]="modalData.content">
+  </div>
+
+  <div *ngIf="modalData !== null && modalData.buttons"
+       class="modal-footer">
+    <button *ngFor="let button of modalData.buttons"
+            type="button"
+            class="btn text-uppercase"
+            [ngClass]="button.className || 'btn-primary'"
+            (click)="click(button.callback)">
+      {{button.text}}
+    </button>
+  </div>
+</ng-template>
