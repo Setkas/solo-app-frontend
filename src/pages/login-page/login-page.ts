@@ -1,8 +1,7 @@
-import {Component, ViewEncapsulation, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {AuthProvider} from "../../providers";
 import {LoaderProvider} from "../../components/loader-component/loader-provider";
 import {Router} from "@angular/router";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalProvider} from "../../components/modal-component/modal-provider";
 
 export interface LoginDetailsInterface {
@@ -25,6 +24,8 @@ export class LoginPage {
     user: null,
     password: ""
   };
+
+  private helpShown: boolean = false;
 
   constructor(private auth: AuthProvider,
               private loader: LoaderProvider,
@@ -72,5 +73,15 @@ export class LoginPage {
         ]
       });
     });
+  }
+
+  private showHelp(): void {
+    if(!this.helpShown) {
+      this.helpShown = true;
+
+      setTimeout(() => {
+        this.helpShown = false;
+      }, 10 * 1000);
+    }
   }
 }

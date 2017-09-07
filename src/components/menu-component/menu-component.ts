@@ -1,4 +1,6 @@
 import {Component, ViewEncapsulation} from '@angular/core';
+import {AuthProvider, ClientProvider} from "../../providers";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'menu-component',
@@ -7,7 +9,23 @@ import {Component, ViewEncapsulation} from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class MenuComponent {
-  constructor() {
+  public clientMenu: boolean = false;
 
+  constructor(private auth: AuthProvider,
+              private client: ClientProvider,
+              private router: Router) {
+    this.client.$onSelected.subscribe(() => {
+      this.clientMenu = true;
+    });
+
+    this.client.$onDeSelected.subscribe(() => {
+      this.clientMenu = false;
+    });
+  }
+
+  public logout(): void {
+    this.auth.logout();
+
+    this.router.navigate(["/login"]);
   }
 }

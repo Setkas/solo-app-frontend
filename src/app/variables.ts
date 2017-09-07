@@ -6,6 +6,7 @@ export const Variables: {[key: string]: any} = {
     "languageDefault": "en",
     "languageList": [
       {
+        "id": 1,
         "name": "English",
         "code": "en"
       }
@@ -32,5 +33,59 @@ export const Variables: {[key: string]: any} = {
     504,
     505
   ],
-  "dateFormat": "Do MMM YYYY"
+  "dateFormat": "Do MMM YYYY",
+  "genderList": [
+    {
+      "id": 0,
+      "name": "MALE"
+    },
+    {
+      "id": 1,
+      "name": "FEMALE"
+    }
+  ],
+  "positionList": [
+    {
+      "id": 1,
+      "name": "DENTIST",
+      "languages": [
+        "en"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "HYGIENIST",
+      "languages": [
+        "en"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "ZMF",
+      "languages": []
+    },
+    {
+      "id": 4,
+      "name": "ZMP",
+      "languages": []
+    },
+    {
+      "id": 5,
+      "name": "ZFA",
+      "languages": []
+    },
+    {
+      "id": 3,
+      "name": "OTHER",
+      "languages": [
+        "en"
+      ]
+    }
+  ],
+  "soloMed": {
+    "apiKey": "6Kpm,sncYfemFsTr",
+    "additionalDescription": "customer",
+    "apiUrl": "https://www.solo-med.de/csiteapi/v1/solomed/customer/"
+  },
+  "passwordRegex": /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/
 };

@@ -1,0 +1,303 @@
+<div class="row">
+  <div class="col-12 col-md-6">
+    <h1 class="h2 text-uppercase">
+      {{"register.REGISTER"| translate}}
+    </h1>
+  </div>
+
+  <div class="col-12 col-md-6 text-md-right">
+    <button type="button"
+            class="btn btn-primary"
+            [disabled]="soloMedConnected"
+            (click)="soloMed = !soloMed">
+      {{"register.SOLO_MED_DE_CONNECT"| translate}}
+    </button>
+  </div>
+</div>
+
+<form #connectForm="ngForm"
+      class="pb-3 mt-3 mb-3 border-bottom"
+      [slideToggle]="soloMed"
+      (ngSubmit)="connectSoloMed(connectForm)">
+  <div class="row">
+    <div class="col-12 col-md-6 form-group">
+      <label for="connect_username_input"
+             class="mb-2 required">
+        {{"register.USERNAME"| translate}}:
+      </label>
+
+      <input id="connect_username_input"
+             class="form-control"
+             name="connect_username"
+             type="text"
+             [(ngModel)]="soloMedData.username"
+             [required]="true"/>
+    </div>
+
+    <div class="col-12 col-md-6 form-group">
+      <label for="connect_password_input"
+             class="mb-2 required">
+        {{"register.PASSWORD"| translate}}:
+      </label>
+
+      <input id="connect_password_input"
+             class="form-control"
+             name="connect_password"
+             type="password"
+             [(ngModel)]="soloMedData.password"
+             [required]="true"/>
+    </div>
+  </div>
+
+  <div class="text-right">
+    <button type="submit"
+            class="btn btn-primary"
+            [disabled]="!connectForm.valid">
+      {{"register.CONNECT"| translate}}
+    </button>
+  </div>
+</form>
+
+<form #registerForm="ngForm"
+      class="mt-3"
+      (ngSubmit)="createUser(registerForm)">
+  <div class="row">
+    <div class="col-12 col-md-6 form-group">
+      <label for="company_input"
+             class="mb-2 required">
+        {{"register.COMPANY"| translate}}:
+      </label>
+
+      <input id="company_input"
+             class="form-control"
+             name="company"
+             type="text"
+             [(ngModel)]="formData.company"
+             [required]="true"/>
+    </div>
+
+    <div class="col-12 col-md-6 form-group">
+      <label for="address_input"
+             class="mb-2 required">
+        {{"register.ADDRESS"| translate}}:
+      </label>
+
+      <input id="address_input"
+             class="form-control"
+             name="address"
+             type="text"
+             [(ngModel)]="formData.address"
+             [required]="true"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 form-group">
+      <label class="required mr-2">
+        {{"register.COUNTRY"| translate}}:
+      </label>
+
+      <button *ngFor="let language of languageList"
+              type="button"
+              class="mr-2 btn btn-outline-primary"
+              [ngClass]="{'active': language.id === formData.language_id}"
+              (click)="selectLanguage(language.id)">
+        {{language.name}}
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-6 form-group">
+      <label for="contact_email_input"
+             class="mb-2 required">
+        {{"register.EMAIL"| translate}}:
+      </label>
+
+      <input id="contact_email_input"
+             class="form-control"
+             name="contact_email"
+             type="email"
+             [(ngModel)]="formData.contact_email"
+             [required]="true"/>
+    </div>
+
+    <div class="col-12 col-md-6 form-group">
+      <label for="phone_input"
+             class="mb-2 required">
+        {{"register.PHONE"| translate}}:
+      </label>
+
+      <input id="phone_input"
+             class="form-control"
+             name="phone"
+             type="text"
+             [(ngModel)]="formData.phone"
+             [required]="true"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 form-group">
+      <label for="webpages_input"
+             class="mb-2 required">
+        {{"register.WEB_PAGES"| translate}}:
+      </label>
+
+      <input id="webpages_input"
+             class="form-control"
+             name="webpages"
+             type="text"
+             [(ngModel)]="formData.webpages"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-4 form-group">
+      <label for="position_id_input"
+             class="mb-2 required">
+        {{"register.PROFESSION"| translate}}:
+      </label>
+
+      <select id="position_id_input"
+              class="form-control"
+              name="position_id"
+              [(ngModel)]="formData.position_id"
+              [required]="true">
+        <option *ngIf="formData.position_id === null"
+                [value]="null">
+          {{"register.SELECT_PROFESSION"| translate}}
+        </option>
+
+        <option *ngFor="let position of positionList"
+                [value]="position.id">
+          {{"positions." + position.name| translate}}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-12 col-md-4 form-group">
+      <label for="gender_input"
+             class="mb-2 required">
+        {{"register.GENDER"| translate}}:
+      </label>
+
+      <select id="gender_input"
+              class="form-control"
+              name="gender"
+              [(ngModel)]="formData.gender"
+              [required]="true">
+        <option *ngIf="formData.gender === null"
+                [value]="null">
+          {{"register.SELECT_GENDER"| translate}}
+        </option>
+
+        <option *ngFor="let gender of genderList"
+                [value]="gender.id">
+          {{"genders." + gender.name| translate}}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-12 col-md-4 form-group">
+      <label for="title_input"
+             class="mb-2 required">
+        {{"register.TITLE"| translate}}:
+      </label>
+
+      <input id="title_input"
+             class="form-control"
+             name="title"
+             type="text"
+             [(ngModel)]="formData.title"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-6 form-group">
+      <label for="name_input"
+             class="mb-2 required">
+        {{"register.NAME"| translate}}:
+      </label>
+
+      <input id="name_input"
+             class="form-control"
+             name="name"
+             type="text"
+             [(ngModel)]="formData.name"
+             [required]="true"/>
+    </div>
+
+    <div class="col-12 col-md-6 form-group">
+      <label for="surname_input"
+             class="mb-2 required">
+        {{"register.SURNAME"| translate}}:
+      </label>
+
+      <input id="surname_input"
+             class="form-control"
+             name="surname"
+             type="text"
+             [(ngModel)]="formData.surname"
+             [required]="true"/>
+    </div>
+  </div>
+
+  <div *ngIf="!soloMedConnected"
+       class="row">
+    <div class="col-12 col-md-6 form-group">
+      <label for="password_input"
+             class="mb-2 required">
+        {{"register.PASSWORD"| translate}}:
+      </label>
+
+      <input id="password_input"
+             class="form-control"
+             name="password"
+             type="password"
+             [(ngModel)]="formData.password"
+             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$"
+             [required]="true"/>
+
+      <div *ngIf="formData.password.length > 0 && !passwordValid(formData.password)"
+           class="alert alert-warning mt-2">
+        {{"general.PASSWORD_HELP"| translate}}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 form-group">
+      <label for="password_repeat_input"
+             class="mb-2 required">
+        {{"register.PASSWORD_REPEAT"| translate}}:
+      </label>
+
+      <input id="password_repeat_input"
+             class="form-control"
+             name="password_repeat"
+             type="password"
+             [(ngModel)]="formData.password_repeat"
+             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$"
+             [required]="true"/>
+
+      <div
+        *ngIf="formData.password_repeat.length > 0 && (!passwordValid(formData.password_repeat) || formData.password !== formData.password_repeat)"
+        class="alert alert-warning mt-2">
+        {{"general.PASSWORD_REPEAT_HELP"| translate}}
+      </div>
+    </div>
+  </div>
+
+  <div class="text-right">
+    <button type="button"
+            class="btn btn-link"
+            [routerLink]="'/login'">
+      {{"general.BACK"| translate}}
+    </button>
+
+    <button type="submit"
+            class="btn btn-primary"
+            [disabled]="!registerForm.valid || formData.password !== formData.password_repeat || formData.position_id === null || formData.language_id === null">
+      {{"register.REGISTER"| translate}}
+    </button>
+  </div>
+</form>

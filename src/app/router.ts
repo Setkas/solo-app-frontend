@@ -1,5 +1,5 @@
 import {Routes} from "@angular/router";
-import {HomePage, LoginPage, NotFoundPage} from "../pages/";
+import {HomePage, LoginPage, NotFoundPage, RegisterPage, ForgotPage} from "../pages/";
 import {AuthGuard} from "../guards";
 
 export const Router: Routes = [
@@ -13,6 +13,14 @@ export const Router: Routes = [
   {
     path: 'login',
     component: LoginPage
+  },
+  {
+    path: 'register',
+    component: RegisterPage
+  },
+  {
+    path: 'forgot',
+    component: ForgotPage
   },
   {
     path: '',

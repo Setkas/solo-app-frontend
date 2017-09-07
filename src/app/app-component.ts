@@ -4,6 +4,7 @@ import {Title} from "@angular/platform-browser";
 import {Variables} from "./variables";
 import * as Moment from "moment";
 import {LoggerProvider} from "../providers/logger-provider";
+import {AuthProvider} from "../providers/auth-provider";
 
 declare const navigator: Navigator;
 
@@ -27,19 +28,26 @@ export class AppComponent {
 
   public isMenu: boolean;
 
-  private backgroundImageUrl: string = Variables.images.backgroundUrl;
+  public backgroundImageUrl: string = Variables.images.backgroundUrl;
 
-  private iconImageUrl: string = Variables.images.logoUrl;
+  public iconImageUrl: string = Variables.images.logoUrl;
 
   public languageList: LangListItem[] = Variables.translator.languageList;
 
   constructor(private translate: TranslateService,
-              private title: Title) {
-    this.isMenu = AppComponent.ShowMenu;
-
+              private title: Title,
+              private auth: AuthProvider) {
     this.initTitle();
 
     this.switchLanguage(this.checkLocale());
+
+    this.auth.$onLogin.subscribe(() => {
+      this.isMenu = true;
+    });
+
+    this.auth.$onLogout.subscribe(() => {
+      this.isMenu = false;
+    });
   }
 
   private checkLocale(code: string = Variables.translator.languageDefault): string {

@@ -11,7 +11,7 @@ import {AppComponent} from './app-component';
 import {Router} from "./router";
 import {environment} from "../environments/environment";
 import {ReplaceValuePipe, ConvertNumberPipe} from "../pipes";
-import {LoggerProvider, AuthProvider} from "../providers";
+import {LoggerProvider, AuthProvider, PracticeProvider, ClientProvider} from "../providers";
 import {
   FlashComponent,
   FlashProvider,
@@ -22,7 +22,7 @@ import {
   ModalComponent,
   ModalProvider
 } from "../components";
-import {HomePage, NotFoundPage, LoginPage} from "../pages";
+import {HomePage, NotFoundPage, LoginPage, RegisterPage, ForgotPage} from "../pages";
 import {Variables} from "./variables";
 import {AuthGuard} from "../guards";
 
@@ -38,7 +38,9 @@ import {AuthGuard} from "../guards";
     LoginPage,
     NotFoundPage,
     MenuComponent,
-    ModalComponent
+    ModalComponent,
+    RegisterPage,
+    ForgotPage
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,9 @@ import {AuthGuard} from "../guards";
     LoaderProvider,
     AuthProvider,
     AuthGuard,
-    ModalProvider
+    ModalProvider,
+    PracticeProvider,
+    ClientProvider
   ],
   bootstrap: [
     AppComponent

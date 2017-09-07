@@ -6,6 +6,8 @@ import * as Moment from "moment";
 import {LoggerProvider} from "./logger-provider";
 import {Router} from "@angular/router";
 
+declare const window: Window;
+
 export interface AuthTokenData {
   token: string,
   expire: string
@@ -49,7 +51,7 @@ export class AuthProvider {
         practice: practice,
         user: user,
         password: password
-      },).subscribe((data: AuthTokenData) => {
+      }).subscribe((data: AuthTokenData) => {
         this.authData = data;
 
         this.saveSession(data);
@@ -64,7 +66,7 @@ export class AuthProvider {
       }, (error: HttpErrorResponse) => {
         this.handleHttpError(error, [401]);
 
-        let msg: string = (error.error && error.error.message) ? error.error.message : null;
+        let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
 
         reject(msg);
       });
@@ -187,5 +189,45 @@ export class AuthProvider {
 
       LoggerProvider.Log("[AUTH]: Session expire time interval was stopped.");
     }
+  }
+
+  public forgotPassword(practice: string, user: number): Promise<void> {
+    return new Promise<void>((resolve: () => void, reject: (err: string) => void) => {
+      this.http.post<{code: number, message: string}>(Variables.apiUrl + "/password-reset", {
+        practice: practice,
+        user: user,
+        url: window.location.href
+      }).subscribe((data: {code: number, message: string}) => {
+        LoggerProvider.Log("[AUTH]: Password reset token was generated and sent to associated email.");
+
+        resolve();
+      }, (error: HttpErrorResponse) => {
+        this.handleHttpError(error, []);
+
+        let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
+
+        reject(msg);
+      });
+    });
+  }
+
+  //http://localhost:8080/forgot#token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwcmFjdGljZSI6IjE0IiwidXNlciI6IjEzIiwiZXhwaXJlIjoiMjAxNy0wOS0wOFQxNToxNzo1OCswMDAwIn0.s-uyHq7AFjar949n0kW1IQN5VeIifp5WRJyK5KwHjs4
+  public newPassword(token: string, password: string): Promise<void> {
+    return new Promise<void>((resolve: () => void, reject: (err: string) => void) => {
+      this.http.post<{code: number, message: string}>(Variables.apiUrl + "/password-update", {
+        token: token,
+        password: password
+      }).subscribe((data: {code: number, message: string}) => {
+        LoggerProvider.Log("[AUTH]: New password was set for user by token.");
+
+        resolve();
+      }, (error: HttpErrorResponse) => {
+        this.handleHttpError(error, []);
+
+        let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
+
+        reject(msg);
+      });
+    });
   }
 }

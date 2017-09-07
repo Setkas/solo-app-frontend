@@ -1,6 +1,5 @@
 import {Directive, ElementRef, Input, OnChanges, SimpleChanges, OnInit, EventEmitter, Output} from "@angular/core";
-
-declare const $: any;
+import * as $ from 'jquery';
 
 @Directive({
   selector: '[slideToggle]'

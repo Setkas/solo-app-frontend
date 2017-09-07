@@ -1,7 +1,23 @@
 {
   "general": {
     "TITLE": "Solo-App",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "CANCEL": "Cancel",
+    "CAUTION": "Caution",
+    "BACK": "Back",
+    "PASSWORD_HELP": "Password must be at least 6 characters long, contain one uppercase letter, lowercase letter and number.",
+    "PASSWORD_REPEAT_HELP": "Passwords must be correct format and match.",
+    "SUCCESS": "Success"
+  },
+  "menu": {
+    "CLIENT": "Client",
+    "HOME": "Home",
+    "SETTINGS": "Settings",
+    "LOGOUT": "Logout",
+    "TEETH": "Teeth",
+    "BLEEDING": "Bleeding",
+    "THERAPY": "Therapy",
+    "NOTES": "Notes"
   },
   "not_found": {
     "PAGE_NOT_FOUND": "Page not Found",
@@ -17,11 +33,61 @@
     "REGISTER_PRACTICE": "Register New Practice",
     "REGISTER_USER": "Register New User",
     "FORGOT_PASSWORD": "Forgot Password?",
-    "LOGIN_FAILED": "Login Failed"
+    "LOGIN_FAILED": "Login Failed",
+    "ADD_USER_HELP": "To create new user, please login first and then navigate to settings where you can complete this action."
+  },
+  "register": {
+    "REGISTER": "Register",
+    "COMPANY": "Company Name",
+    "ADDRESS": "Full Address",
+    "COUNTRY": "Language",
+    "EMAIL": "Email Address",
+    "PHONE": "Phone Number",
+    "WEB_PAGES": "Web Page",
+    "PROFESSION": "Profession",
+    "GENDER": "Gender",
+    "TITLE": "Title",
+    "NAME": "Forename",
+    "SURNAME": "Surname",
+    "PASSWORD": "Password",
+    "PASSWORD_REPEAT": "Re-Enter Password",
+    "SELECT_PROFESSION": "Select profession...",
+    "SELECT_GENDER": "Select gender...",
+    "SOLO_MED_DE_CONNECT": "Connect with solo-med.de",
+    "USERNAME": "Username",
+    "CONNECT": "Connect"
+  },
+  "forgot": {
+    "FORGOTTEN_PASSWORD": "Forgotten Password",
+    "RESET": "Reset",
+    "PRACTICE_CODE": "Practice Code",
+    "USER_CODE": "User Code",
+    "PASSWORD_RESET_SUCCESS": "Password reset was successful, details were sent to associated email address.",
+    "NEW_PASSWORD": "Set New Password",
+    "PASSWORD": "Password",
+    "PASSWORD_REPEAT": "Re-Enter Password",
+    "UPDATE_PASSWORD": "Update Password",
+    "NEW_PASSWORD_SUCCESS": "New password was saved and can be used to login."
+  },
+  "genders": {
+    "MALE": "Male",
+    "FEMALE": "Female"
+  },
+  "positions": {
+    "DENTIST": "Dentist",
+    "HYGIENIST": "Dental Hygienist",
+    "ZMF": "ZMF",
+    "ZMP": "ZMP",
+    "ZFA": "ZFA",
+    "OTHER": "Other"
   },
   "error": {
     "INVALID_PARAMETERS_PROVIDED": "Invalid data were provided to process request.",
     "INVALID_LOGIN_DETAILS": "Invalid login details combination provided.",
-    "PRACTICE_VALIDITY_EXPIRED": "Practice is no longer valid, please contact us to extend your license."
+    "PRACTICE_VALIDITY_EXPIRED": "Practice is no longer valid, please contact us to extend your license.",
+    "SERVICE_FAILURE": "Services failed to respond, please try again later.",
+    "NON_EXISTENT_COMBINATION": "Invalid authentication details combination supplied.",
+    "PASSWORD_RESET_FAILED": "Could not reset user's password.",
+    "PASSWORD_UPDATE_ERROR": "Could not update user's password."
   }
 }

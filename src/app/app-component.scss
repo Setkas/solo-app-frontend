@@ -40,6 +40,10 @@ app-root {
     &.menu-shown {
       padding-left: calc(5em + 15px);
     }
+
+    @include media-sm() {
+      overflow: visible;
+    }
   }
 
   .background-box {
@@ -72,7 +76,13 @@ app-root {
 
   @include media-sm() {
     .title-box {
-      min-height: 5em;
+      min-height: 5.5em;
+
+      > img {
+        top: auto;
+        bottom: 0.5em;
+        @include transform(translate(0, 0));
+      }
     }
 
     .main-box {
@@ -82,8 +92,8 @@ app-root {
       @include border-radius(0);
 
       &.menu-shown {
-        padding-left: 0;
-        padding-top: 3em;
+        padding-left: 15px;
+        margin-top: 3em;
       }
     }
 

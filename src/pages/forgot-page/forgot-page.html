@@ -1,0 +1,120 @@
+<form *ngIf="newPasswordFormData.token === null"
+      #resetForm="ngForm"
+      (ngSubmit)="resetPassword(resetForm)">
+  <h1 class="h2 text-uppercase">
+    {{"forgot.FORGOTTEN_PASSWORD"| translate}}
+  </h1>
+
+  <div class="row">
+    <div class="col-12 form-group">
+      <label for="practice_input"
+             class="mb-2 required">
+        {{"forgot.PRACTICE_CODE"| translate}}:
+      </label>
+
+      <input id="practice_input"
+             class="form-control"
+             name="practice"
+             type="text"
+             [(ngModel)]="formData.practice"
+             [required]="true"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 form-group">
+      <label for="user_input"
+             class="mb-2 required">
+        {{"forgot.USER_CODE"| translate}}:
+      </label>
+
+      <input id="user_input"
+             class="form-control"
+             name="user"
+             type="number"
+             [(ngModel)]="formData.user"
+             [required]="true"/>
+    </div>
+  </div>
+
+  <div class="text-right">
+    <button type="button"
+            class="btn btn-link"
+            [routerLink]="'/login'">
+      {{"general.BACK"| translate}}
+    </button>
+
+    <button type="submit"
+            class="btn btn-primary"
+            [disabled]="!resetForm.valid">
+      {{"forgot.RESET"| translate}}
+    </button>
+  </div>
+</form>
+
+<form *ngIf="newPasswordFormData.token !== null"
+      #newPasswordForm="ngForm"
+      (ngSubmit)="newPassword(newPasswordForm)">
+  <h1 class="h2 text-uppercase">
+    {{"forgot.NEW_PASSWORD"| translate}}
+  </h1>
+
+  <div class="row">
+    <div class="col-12 form-group">
+      <label for="password_input"
+             class="mb-2 required">
+        {{"forgot.PASSWORD"| translate}}:
+      </label>
+
+      <input id="password_input"
+             class="form-control"
+             name="password"
+             type="password"
+             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$"
+             [(ngModel)]="newPasswordFormData.password"
+             [required]="true"/>
+
+      <div *ngIf="newPasswordFormData.password.length > 0 && !passwordValid(newPasswordFormData.password)"
+           class="alert alert-warning mt-2">
+        {{"general.PASSWORD_HELP"| translate}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 form-group">
+      <label for="password_repeat_input"
+             class="mb-2 required">
+        {{"forgot.PASSWORD_REPEAT"| translate}}:
+      </label>
+
+      <input id="password_repeat_input"
+             class="form-control"
+             name="password_repeat"
+             type="password"
+             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$"
+             [(ngModel)]="newPasswordFormData.password_repeat"
+             [required]="true"/>
+
+      <div
+          *ngIf="newPasswordFormData.password_repeat.length > 0 && (!passwordValid(newPasswordFormData.password_repeat) || newPasswordFormData.password !== newPasswordFormData.password_repeat)"
+          class="alert alert-warning mt-2">
+        {{"general.PASSWORD_REPEAT_HELP"| translate}}
+      </div>
+    </div>
+  </div>
+
+  <div class="text-right">
+    <button type="button"
+            class="btn btn-link"
+            [routerLink]="'/login'">
+      {{"general.CANCEL"| translate}}
+    </button>
+
+    <button type="submit"
+            class="btn btn-primary"
+            [disabled]="!newPasswordForm.valid || newPasswordFormData.password !== newPasswordFormData.password_repeat">
+      {{"forgot.UPDATE_PASSWORD"| translate}}
+    </button>
+  </div>
+</form>

@@ -1,1 +1,65 @@
+<button class="btn btn-default"
+        [title]="'menu.HOME'| translate"
+        [routerLink]="'/home'"
+        [routerLinkActive]="'active'">
+  <i class="sa-home"></i>
+</button>
 
+<button *ngIf="!clientMenu"
+        class="btn btn-default"
+        [title]="'menu.CLIENT'| translate"
+        [routerLink]="'/client'"
+        [routerLinkActive]="'active'">
+  <i class="sa-person"></i>
+</button>
+
+<div *ngIf="clientMenu"
+     class="menu-group">
+  <button class="btn btn-primary"
+          [title]="'menu.CLIENT'| translate"
+          [routerLink]="'/client'"
+          [routerLinkActive]="'active'">
+    <i class="sa-person"></i>
+  </button>
+
+  <button class="btn btn-primary"
+          [title]="'menu.TEETH'| translate"
+          [routerLink]="'/teeth'"
+          [routerLinkActive]="'active'">
+    <i class="sa-tooth"></i>
+  </button>
+
+  <button class="btn btn-primary"
+          [title]="'menu.BLEEDING'| translate"
+          [routerLink]="'/bleed'"
+          [routerLinkActive]="'active'">
+    <i class="sa-blood"></i>
+  </button>
+
+  <button class="btn btn-primary"
+          [title]="'menu.THERAPY'| translate"
+          [routerLink]="'/therapy'"
+          [routerLinkActive]="'active'">
+    <i class="sa-stix"></i>
+  </button>
+
+  <button class="btn btn-primary"
+          [title]="'menu.NOTES'| translate"
+          [routerLink]="'/notes'"
+          [routerLinkActive]="'active'">
+    <i class="sa-edit"></i>
+  </button>
+</div>
+
+<button class="btn btn-default"
+        [title]="'menu.SETTINGS'| translate"
+        [routerLink]="'/setup'"
+        [routerLinkActive]="'active'">
+  <i class="sa-settings"></i>
+</button>
+
+<button class="btn btn-default"
+        [title]="'menu.LOGOUT'| translate"
+        (click)="logout()">
+  <i class="sa-logout"></i>
+</button>
