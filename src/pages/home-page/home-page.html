@@ -1,0 +1,26 @@
+<h1 class="h2 text-uppercase mb-3">
+  {{practice.details?.company}}
+</h1>
+
+<ul class="list-unstyled">
+  <li>
+    <b>{{"home.VALID_UNTIL"| translate}}:</b>
+
+    {{practice.details?.valid |amDateFormat:"MMMM Do YYYY"}}
+  </li>
+
+  <li class="mt-2 mb-2">
+    <b>{{"home.USER"| translate}}:</b>
+
+    {{user.details?.title}} {{user.details?.name}} {{user.details?.surname}}
+  </li>
+
+  <li>
+    {{"home.USER_HELP"| translate}}:
+
+    <a class="btn btn-link p-0"
+       href="mailto:{{helpMail}}">
+      {{helpMail}}
+    </a>
+  </li>
+</ul>

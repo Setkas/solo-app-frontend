@@ -10,7 +10,8 @@ declare const window: Window;
 
 export interface AuthTokenData {
   token: string,
-  expire: string
+  expire: string,
+  authorization: string
 }
 
 @Injectable()
@@ -37,7 +38,7 @@ export class AuthProvider {
 
   public appendHeader(headers: HttpHeaders = new HttpHeaders()): HttpHeaders {
     if (this.isAuthorized()) {
-      headers.append("Authorization", this.authData.token);
+      headers = headers.append("Authorization", this.authData.token);
     } else {
       LoggerProvider.Warning("[AUTH]: Unable to append authorization header.");
     }
@@ -197,7 +198,7 @@ export class AuthProvider {
         practice: practice,
         user: user,
         url: window.location.href
-      }).subscribe((data: {code: number, message: string}) => {
+      }).subscribe(() => {
         LoggerProvider.Log("[AUTH]: Password reset token was generated and sent to associated email.");
 
         resolve();
@@ -206,12 +207,13 @@ export class AuthProvider {
 
         let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
 
+        LoggerProvider.Error("[AUTH]: Could not generate password reset token and send to email address.");
+
         reject(msg);
       });
     });
   }
 
-  //http://localhost:8080/forgot#token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwcmFjdGljZSI6IjE0IiwidXNlciI6IjEzIiwiZXhwaXJlIjoiMjAxNy0wOS0wOFQxNToxNzo1OCswMDAwIn0.s-uyHq7AFjar949n0kW1IQN5VeIifp5WRJyK5KwHjs4
   public newPassword(token: string, password: string): Promise<void> {
     return new Promise<void>((resolve: () => void, reject: (err: string) => void) => {
       this.http.post<{code: number, message: string}>(Variables.apiUrl + "/password-update", {
@@ -226,8 +228,21 @@ export class AuthProvider {
 
         let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
 
+        LoggerProvider.Error("[AUTH]: Could not update password by token.");
+
         reject(msg);
       });
     });
+  }
+
+  public hasAuthorization(requiredAuth: string): boolean {
+    if (this.authData === null || !Variables.authLevels[requiredAuth] || !Variables.authLevels[this.authData.authorization]) {
+      return false;
+    }
+
+    let value: number = Variables.authLevels[requiredAuth],
+      currentAuth: number = Variables.authLevels[this.authData.authorization];
+
+    return currentAuth >= value;
   }
 }

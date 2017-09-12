@@ -34,6 +34,8 @@ export class ForgotPage implements OnInit, OnDestroy {
     user: null
   };
 
+  public passwordRegExp: string = Variables.passwordRegex;
+
   public newPasswordFormData: NewPasswordFromDataInterface = {
     token: null,
     password: "",
@@ -119,7 +121,7 @@ export class ForgotPage implements OnInit, OnDestroy {
   }
 
   public passwordValid(password: string): boolean {
-    return Variables.passwordRegex.test(password);
+    return new RegExp(Variables.passwordRegex).test(password);
   }
 
   public newPassword(form: NgForm): void {

@@ -1,4 +1,6 @@
 import {Component, ViewEncapsulation} from '@angular/core';
+import {Variables} from "../../app/variables";
+import {PracticeProvider, UserProvider} from "../../providers";
 
 @Component({
   selector: 'home-page',
@@ -9,6 +11,9 @@ import {Component, ViewEncapsulation} from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class HomePage {
-  constructor() {
+  public helpMail: string = Variables.helpEmail;
+
+  constructor(public practice: PracticeProvider,
+              public user: UserProvider) {
   }
 }

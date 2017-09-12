@@ -256,7 +256,7 @@
              name="password"
              type="password"
              [(ngModel)]="formData.password"
-             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$"
+             [pattern]="passwordRegExp"
              [required]="true"/>
 
       <div *ngIf="formData.password.length > 0 && !passwordValid(formData.password)"
@@ -276,7 +276,7 @@
              name="password_repeat"
              type="password"
              [(ngModel)]="formData.password_repeat"
-             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$"
+             [pattern]="passwordRegExp"
              [required]="true"/>
 
       <div

@@ -11,7 +11,7 @@ import {AppComponent} from './app-component';
 import {Router} from "./router";
 import {environment} from "../environments/environment";
 import {ReplaceValuePipe, ConvertNumberPipe} from "../pipes";
-import {LoggerProvider, AuthProvider, PracticeProvider, ClientProvider} from "../providers";
+import {LoggerProvider, AuthProvider, PracticeProvider, ClientProvider, UserProvider, SetupProvider} from "../providers";
 import {
   FlashComponent,
   FlashProvider,
@@ -22,9 +22,10 @@ import {
   ModalComponent,
   ModalProvider
 } from "../components";
-import {HomePage, NotFoundPage, LoginPage, RegisterPage, ForgotPage} from "../pages";
+import {HomePage, NotFoundPage, LoginPage, RegisterPage, ForgotPage, SettingsPage} from "../pages";
 import {Variables} from "./variables";
 import {AuthGuard} from "../guards";
+import {MomentModule} from "angular2-moment";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {AuthGuard} from "../guards";
     MenuComponent,
     ModalComponent,
     RegisterPage,
-    ForgotPage
+    ForgotPage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -57,12 +59,13 @@ import {AuthGuard} from "../guards";
       missingTranslationHandler: {
         provide: MissingTranslationHandler,
         useClass: CustomMissingTranslationHandler
-      },
+      }
     }),
     NgbModule.forRoot(),
     RouterModule.forRoot(Router, {
       enableTracing: !environment.production && Variables.routerDebug
-    })
+    }),
+    MomentModule
   ],
   providers: [
     CookieService,
@@ -75,7 +78,9 @@ import {AuthGuard} from "../guards";
     AuthGuard,
     ModalProvider,
     PracticeProvider,
-    ClientProvider
+    ClientProvider,
+    UserProvider,
+    SetupProvider
   ],
   bootstrap: [
     AppComponent

@@ -7,7 +7,10 @@
     "BACK": "Back",
     "PASSWORD_HELP": "Password must be at least 6 characters long, contain one uppercase letter, lowercase letter and number.",
     "PASSWORD_REPEAT_HELP": "Passwords must be correct format and match.",
-    "SUCCESS": "Success"
+    "SUCCESS": "Success",
+    "SAVE": "Save",
+    "YES": "Yes",
+    "NO": "No"
   },
   "menu": {
     "CLIENT": "Client",
@@ -69,6 +72,54 @@
     "UPDATE_PASSWORD": "Update Password",
     "NEW_PASSWORD_SUCCESS": "New password was saved and can be used to login."
   },
+  "home": {
+    "VALID_UNTIL": "Valid until",
+    "USER": "User",
+    "USER_HELP": "For more information, please contact us on email"
+  },
+  "settings": {
+    "CLIENT_DATA": "Client Data",
+    "NOTES": "Notes",
+    "THERAPY": "Therapy",
+    "USER_LIST": "User List",
+    "PRACTICE_DATA": "Practice Data",
+    "CLIENT_HISTORY": "Number of displayed examinations",
+    "CLIENT_REMINDER": "Send reminder for customers",
+    "NO": "Do not Send",
+    "MONTH_BEFORE": "Month Before",
+    "2_MONTHS_BEFORE": "2 Months Before",
+    "3_MONTHS_BEFORE": "3 Months Before",
+    "SEND_ALL_CLIENT_LOGINS": "Send All Client Logins",
+    "NOTES_HISTORY": "Number of displayed examinations notes",
+    "SETUP_SAVED": "Settings were updated successfully.",
+    "PROFESSION": "Profession",
+    "GENDER": "Gender",
+    "TITLE": "Title",
+    "NAME": "Forename",
+    "SURNAME": "Surname",
+    "SELECT_PROFESSION": "Select profession...",
+    "SELECT_GENDER": "Select gender...",
+    "ACTIONS": "Actions",
+    "DELETE": "Delete",
+    "CREATE_NEW_USER": "Create New User",
+    "USER_DELETED": "Selected user was successfully deleted.",
+    "DELETE_USER": "Delete User",
+    "CONFIRM_DELETE_USER": "Do you really want to delete selected user?",
+    "USER_EDIT_SUCCESS": "User data were successfully updated.",
+    "NEW_USER_CREATED": "New user was successfully created.",
+    "COMPANY": "Company Name",
+    "ADDRESS": "Full Address",
+    "COUNTRY": "Language",
+    "EMAIL": "Email Address",
+    "PHONE": "Phone Number",
+    "WEB_PAGES": "Web Page",
+    "LANGUAGE": "Language",
+    "SELECT_LANGUAGE": "Select language...",
+    "SYSTEM_EMAIL": "Exports Email Address",
+    "SYSTEM_EMAIL_HELP": "Send client changes to specific e-mail.",
+    "PRACTICE_SAVED": "Practice data were successfully updated.",
+    "DEFAULT_COLOR": "Default Color"
+  },
   "genders": {
     "MALE": "Male",
     "FEMALE": "Female"
@@ -79,7 +130,8 @@
     "ZMF": "ZMF",
     "ZMP": "ZMP",
     "ZFA": "ZFA",
-    "OTHER": "Other"
+    "OTHER": "Other",
+    "UNKNOWN": "Unknown"
   },
   "error": {
     "INVALID_PARAMETERS_PROVIDED": "Invalid data were provided to process request.",
@@ -88,6 +140,14 @@
     "SERVICE_FAILURE": "Services failed to respond, please try again later.",
     "NON_EXISTENT_COMBINATION": "Invalid authentication details combination supplied.",
     "PASSWORD_RESET_FAILED": "Could not reset user's password.",
-    "PASSWORD_UPDATE_ERROR": "Could not update user's password."
+    "PASSWORD_UPDATE_ERROR": "Could not update user's password.",
+    "USER_DELETE_ERROR": "User could not be deleted.",
+    "SETUP_UPDATE_FAILED": "Could not successfully update settings.",
+    "USER_UPDATE_ERROR": "Could not update user data.",
+    "ACTION_NOT_PERMITTED": "Could not finish action because of invalid permissions.",
+    "ACCESS_TOKEN_INVALID": "Invalid access token provided.",
+    "INVALID_ACCESS": "Invalid access to backend server detected.",
+    "USER_CREATION_ERROR": "User could not be successfully created.",
+    "PRACTICE_EDIT_ERROR": "Could not update practice data."
   }
 }

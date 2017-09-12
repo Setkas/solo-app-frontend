@@ -1,0 +1,511 @@
+<ul class="nav nav-pills nav-fill mb-3">
+  <li class="nav-item">
+    <a class="nav-link"
+       [ngClass]="{'active': activeTab === 'client'}"
+       (click)="selectTab('client')">
+      {{"settings.CLIENT_DATA"| translate}}
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link"
+       [ngClass]="{'active': activeTab === 'notes'}"
+       (click)="selectTab('notes')">
+      {{"settings.NOTES"| translate}}
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link"
+       [ngClass]="{'active': activeTab === 'therapy'}"
+       (click)="selectTab('therapy')">
+      {{"settings.THERAPY"| translate}}
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a *ngIf="auth.hasAuthorization('MODERATOR')"
+       class="nav-link"
+       [ngClass]="{'active': activeTab === 'user'}"
+       (click)="selectTab('user')">
+      {{"settings.USER_LIST"| translate}}
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a *ngIf="auth.hasAuthorization('MODERATOR')"
+       class="nav-link"
+       [ngClass]="{'active': activeTab === 'practice'}"
+       (click)="selectTab('practice')">
+      {{"settings.PRACTICE_DATA"| translate}}
+    </a>
+  </li>
+</ul>
+
+<form #settingsForm="ngForm"
+      class="form-inline"
+      (ngSubmit)="saveSetup()">
+  <div *ngIf="activeTab === 'client'">
+    <h2 class="h3 text-uppercase">
+      {{"settings.CLIENT_DATA"| translate}}
+    </h2>
+
+    <div class="form-group mb-2">
+      <label class="mr-2"
+             for="client_history_input">
+        {{"settings.CLIENT_HISTORY"| translate}}:
+      </label>
+
+      <select id="client_history_input"
+              name="client_history"
+              class="form-control form-control-sm"
+              [(ngModel)]="formData['client_history']"
+              [required]="true">
+        <option *ngFor="let value of clientHistoryNumeral"
+                [value]="value">
+          {{value}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group mb-2">
+      <label class="mr-2"
+             for="client_reminder_input">
+        {{"settings.CLIENT_REMINDER"| translate}}:
+      </label>
+
+      <select id="client_reminder_input"
+              name="client_reminder"
+              class="form-control form-control-sm"
+              [(ngModel)]="formData['client_reminder']"
+              [required]="true">
+        <option *ngFor="let numeral of clientReminderNumeral"
+                [value]="numeral.value">
+          {{"settings." + numeral.name| translate}}
+        </option>
+      </select>
+    </div>
+
+    <button *ngIf="practice.details?.client_login"
+            type="button"
+            class="btn btn-sm btn-outline-primary"
+            (click)="sendClientLogins()">
+      {{"settings.SEND_ALL_CLIENT_LOGINS"| translate}}
+    </button>
+  </div>
+
+  <div *ngIf="activeTab === 'notes'">
+    <h2 class="h3 text-uppercase">
+      {{"settings.NOTES"| translate}}
+    </h2>
+
+    <div class="form-group mb-2">
+      <label class="mr-2"
+             for="notes_history_input">
+        {{"settings.NOTES_HISTORY"| translate}}:
+      </label>
+
+      <select id="notes_history_input"
+              name="notes_history"
+              class="form-control form-control-sm"
+              [(ngModel)]="formData['notes_history']"
+              [required]="true">
+        <option *ngFor="let value of notesHistoryNumeral"
+                [value]="value">
+          {{value}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab === 'therapy'">
+    <h2 class="h3 text-uppercase">
+      {{"settings.THERAPY"| translate}}
+    </h2>
+
+    <div class="form-check form-check-inline stix-options">
+      <span class="mr-3">
+        {{"settings.DEFAULT_COLOR"| translate}}:
+      </span>
+
+      <label *ngFor="let option of therapyColorNumeral"
+             class="form-check-label stix-option">
+        <img class="mb-2"
+             [src]="option.preview"/>
+
+        <input class="form-check-input"
+               type="radio"
+               name="therapy_color"
+               [(ngModel)]="formData['therapy_color']"
+               [value]="option.value">
+      </label>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab !== 'user' && activeTab !== 'practice'"
+       class="text-right">
+    <button type="submit"
+            class="btn btn-primary"
+            [disabled]="!settingsForm.valid || !areChanges()">
+      {{"general.SAVE"| translate}}
+    </button>
+  </div>
+</form>
+
+<div *ngIf="activeTab === 'user' && auth.hasAuthorization('MODERATOR')">
+  <h2 class="h3 text-uppercase">
+    {{"settings.USER_LIST"| translate}}
+
+    <button type="button"
+            class="btn btn-outline-primary btn-sm float-right"
+            [ngClass]="{'active': createUserOpen}"
+            (click)="createUserOpen = true">
+      <i class="ion ion-md-person-add"></i>
+
+      {{"settings.CREATE_NEW_USER"| translate}}
+    </button>
+  </h2>
+
+  <form #newUserForm="ngForm"
+        class="bordered-bottom"
+        [slideToggle]="createUserOpen"
+        (ngSubmit)="createUser()">
+    <div class="row pt-3">
+      <div class="col-12 col-md-2 form-group">
+        <label for="gender_input"
+               class="mb-2 required">
+          {{"register.GENDER"| translate}}:
+        </label>
+
+        <select id="gender_input"
+                class="form-control"
+                name="gender"
+                [(ngModel)]="userFormData.gender"
+                [required]="true">
+          <option *ngIf="userFormData.gender === null"
+                  [value]="null">
+            {{"settings.SELECT_GENDER"| translate}}
+          </option>
+
+          <option *ngFor="let gender of genderList"
+                  [value]="gender.id">
+            {{"genders." + gender.name| translate}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-12 col-md-2 form-group">
+        <label for="title_input">
+          {{"settings.TITLE"| translate}}
+        </label>
+
+        <input type="text"
+               class="form-control"
+               id="title_input"
+               name="title"
+               [(ngModel)]="userFormData.title"/>
+      </div>
+
+      <div class="col-12 col-md-3 form-group">
+        <label for="name_input">
+          {{"settings.NAME"| translate}}
+        </label>
+
+        <input type="text"
+               class="form-control"
+               id="name_input"
+               name="name"
+               [(ngModel)]="userFormData.name"
+               [required]="true"/>
+      </div>
+
+      <div class="col-12 col-md-3 form-group">
+        <label for="surname_input">
+          {{"settings.SURNAME"| translate}}
+        </label>
+
+        <input type="text"
+               class="form-control"
+               id="surname_input"
+               name="surname"
+               [(ngModel)]="userFormData.surname"
+               [required]="true"/>
+      </div>
+
+      <div class="col-12 col-md-2 form-group">
+        <label for="position_id_input"
+               class="mb-2 required">
+          {{"settings.PROFESSION"| translate}}:
+        </label>
+
+        <select id="position_id_input"
+                class="form-control"
+                name="position_id"
+                [(ngModel)]="userFormData.position_id"
+                [required]="true">
+          <option *ngIf="userFormData.position_id === null"
+                  [value]="null">
+            {{"register.SELECT_PROFESSION"| translate}}
+          </option>
+
+          <option *ngFor="let position of positionList"
+                  [value]="position.id">
+            {{"positions." + position.name| translate}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="text-right pb-3">
+      <button type="button"
+              class="btn btn-link mr-2"
+              (click)="clearUserForm()">
+        {{"general.CANCEL"| translate}}
+      </button>
+
+      <button type="submit"
+              class="btn btn-primary"
+              [disabled]="!newUserForm.valid">
+        {{"general.SAVE"| translate}}
+      </button>
+    </div>
+  </form>
+
+  <div class="row align-items-start mb-2 mt-3">
+    <div class="col-12 col-md-2">
+      <b>{{"settings.PROFESSION"| translate}}</b>
+    </div>
+
+    <div class="col-12 col-md-2">
+      <b>{{"settings.TITLE"| translate}}</b>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <b>{{"settings.NAME"| translate}}</b>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <b>{{"settings.SURNAME"| translate}}</b>
+    </div>
+
+    <div class="col-12 col-md-2">
+      <b>{{"settings.ACTIONS"| translate}}</b>
+    </div>
+  </div>
+
+  <div *ngFor="let userItem of userList"
+       class="row align-items-start mb-2">
+    <div *ngIf="!user.details || (user.details && user.details.id !== userItem.id)"
+         class="col-12 col-md-2 col-fixed-height">
+      {{"positions." + getPositionName(userItem.position_id)| translate}}
+    </div>
+
+    <div *ngIf="user.details && user.details.id === userItem.id"
+         class="col-12 col-md-2 mb-2 mb-md-0">
+      <select class="form-control form-control-sm"
+              name="position_id_edit"
+              [(ngModel)]="userEditFormData.position_id"
+              (change)="userUpdated()">
+        <option *ngIf="userEditFormData.position_id === null"
+                [value]="null">
+          {{"register.SELECT_PROFESSION"| translate}}
+        </option>
+
+        <option *ngFor="let position of positionList"
+                [value]="position.id">
+          {{"positions." + position.name| translate}}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="!user.details || (user.details && user.details.id !== userItem.id)"
+         class="col-12 col-md-2 col-fixed-height">
+      {{userItem.title}}
+    </div>
+
+    <div *ngIf="user.details && user.details.id === userItem.id"
+         class="col-12 col-md-2 mb-2 mb-md-0">
+      <input type="text"
+             class="form-control form-control-sm"
+             name="title_edit"
+             [(ngModel)]="userEditFormData.title"
+             (blur)="userUpdated()"/>
+    </div>
+
+    <div *ngIf="!user.details || (user.details && user.details.id !== userItem.id)"
+         class="col-12 col-md-3 col-fixed-height">
+      {{userItem.name}}
+    </div>
+
+    <div *ngIf="user.details && user.details.id === userItem.id"
+         class="col-12 col-md-3 mb-2 mb-md-0">
+      <input type="text"
+             class="form-control form-control-sm"
+             name="name_edit"
+             [(ngModel)]="userEditFormData.name"
+             (blur)="userUpdated()"/>
+    </div>
+
+    <div *ngIf="!user.details || (user.details && user.details.id !== userItem.id)"
+         class="col-12 col-md-3 col-fixed-height">
+      {{userItem.surname}}
+    </div>
+
+    <div *ngIf="user.details && user.details.id === userItem.id"
+         class="col-12 col-md-3 mb-2 mb-md-0">
+      <input type="text"
+             class="form-control form-control-sm"
+             name="surname_edit"
+             [(ngModel)]="userEditFormData.surname"
+             (blur)="userUpdated()"/>
+    </div>
+
+    <div class="col-12 col-md-2 mb-2 mb-md-0">
+      <button *ngIf="user.details && user.details.id !== userItem.id"
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              [title]="'settings.DELETE'| translate"
+              (click)="deleteUser(userItem.id)">
+        <i class="ion ion-md-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="activeTab === 'practice' && auth.hasAuthorization('MODERATOR')">
+  <h2 class="h3 text-uppercase">
+    {{"settings.PRACTICE_DATA"| translate}}
+  </h2>
+
+  <form #practiceEditForm="ngForm"
+        (ngSubmit)="updatePractice()">
+    <div class="row">
+      <div class="col-12 form-group mb-2">
+        <label for="company_input"
+               class="mb-2 required">
+          {{"settings.COMPANY"| translate}}:
+        </label>
+
+        <input type="text"
+               id="company_input"
+               name="company"
+               class="form-control"
+               [(ngModel)]="practiceEditFormData.company"
+               [required]="true"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 form-group mb-2">
+        <label for="address_input"
+               class="mb-2 required">
+          {{"settings.ADDRESS"| translate}}:
+        </label>
+
+        <input type="text"
+               id="address_input"
+               name="address"
+               class="form-control"
+               [(ngModel)]="practiceEditFormData.address"
+               [required]="true"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6 form-group mb-2">
+        <label for="phone_input"
+               class="mb-2 required">
+          {{"settings.PHONE"| translate}}:
+        </label>
+
+        <input type="text"
+               id="phone_input"
+               name="phone"
+               class="form-control"
+               [(ngModel)]="practiceEditFormData.phone"
+               [required]="true"/>
+      </div>
+
+      <div class="col-12 col-md-6 form-group mb-2">
+        <label for="contact_email_input"
+               class="mb-2 required">
+          {{"settings.EMAIL"| translate}}:
+        </label>
+
+        <input type="email"
+               id="contact_email_input"
+               name="contact_email"
+               class="form-control"
+               [(ngModel)]="practiceEditFormData.contact_email"
+               [required]="true"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 form-group mb-2">
+        <label for="webpages_input"
+               class="mb-2">
+          {{"settings.WEB_PAGES"| translate}}:
+        </label>
+
+        <input type="text"
+               id="webpages_input"
+               name="webpages"
+               class="form-control"
+               [(ngModel)]="practiceEditFormData.webpages"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 form-group mb-2">
+        <label for="language_id_input"
+               class="mb-2 required">
+          {{"settings.LANGUAGE"| translate}}:
+        </label>
+
+        <select id="language_id_input"
+                class="form-control"
+                name="language_id"
+                [(ngModel)]="practiceEditFormData.language_id"
+                [required]="true">
+          <option *ngIf="practiceEditFormData.language_id === null"
+                  [value]="null">
+            {{"settings.SELECT_LANGUAGE"| translate}}
+          </option>
+
+          <option *ngFor="let language of languageList"
+                  [value]="language.id">
+            {{language.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 form-group mb-2">
+        <label for="system_email_input"
+               class="mb-2 form-help">
+          {{"settings.SYSTEM_EMAIL"| translate}}:
+
+          <small class="text-muted">
+            {{"settings.SYSTEM_EMAIL_HELP"| translate}}
+          </small>
+        </label>
+
+        <input type="email"
+               id="system_email_input"
+               name="system_email"
+               class="form-control"
+               [(ngModel)]="practiceEditFormData.system_email"/>
+      </div>
+    </div>
+
+    <div class="text-right pt-2">
+      <button type="submit"
+              class="btn btn-primary"
+              [disabled]="!practiceEditForm.valid || !isPracticeChange()">
+        {{"general.SAVE"| translate}}
+      </button>
+    </div>
+  </form>
+</div>

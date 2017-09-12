@@ -43,6 +43,16 @@ app-root {
 
     @include media-sm() {
       overflow: visible;
+
+      .scroll-box {
+        width: calc(100% - 30px);
+        height: calc(100% - 30px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: absolute;
+        left: 15px;
+        top: 15px;
+      }
     }
   }
 
@@ -68,7 +78,7 @@ app-root {
       display: inline-block;
       @include border-radius(0 0 0.3rem 0.3rem);
 
-      +.language-switch {
+      + .language-switch {
         margin-left: 0.5em;
       }
     }
@@ -100,5 +110,11 @@ app-root {
     .background-box {
       display: none;
     }
+  }
+
+  .form-group label.required:after {
+    content: "*";
+    color: color(primary);
+    display: inline-block;
   }
 }

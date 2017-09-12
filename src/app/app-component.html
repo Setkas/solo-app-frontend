@@ -15,7 +15,9 @@
      [ngClass]="{'menu-shown': isMenu}">
   <menu-component *ngIf="isMenu"></menu-component>
 
-  <router-outlet></router-outlet>
+  <div class="scroll-box">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 <div class="background-box">

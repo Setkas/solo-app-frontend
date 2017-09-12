@@ -58,6 +58,8 @@ export class RegisterPage implements OnInit {
     password: ""
   };
 
+  public passwordRegExp: string = Variables.passwordRegex;
+
   public soloMedConnected: boolean = false;
 
   public languageList: LanguageListInterface[] = Variables.translator.languageList;
@@ -114,7 +116,7 @@ export class RegisterPage implements OnInit {
   }
 
   public passwordValid(password: string): boolean {
-    return Variables.passwordRegex.test(password);
+    return new RegExp(Variables.passwordRegex).test(password);
   }
 
   public selectLanguage(language: number): void {
@@ -146,12 +148,12 @@ export class RegisterPage implements OnInit {
       phone: this.formData.phone,
       contact_email: this.formData.contact_email,
       webpages: this.formData.webpages,
-      language_id: this.formData.language_id,
+      language_id: Number(this.formData.language_id),
       password: this.formData.password,
       title: this.formData.title,
       name: this.formData.name,
       surname: this.formData.surname,
-      position_id: this.formData.position_id,
+      position_id: Number(this.formData.position_id),
       gender: this.formData.gender
     }).then(() => {
       this.formData = {

@@ -1,0 +1,82 @@
+@import "../../themes/imports";
+
+settings-page {
+  .nav {
+    .nav-link {
+      cursor: default;
+
+      &:not(.disabled):not(.active):not([disabled]) {
+        cursor: pointer;
+
+        &:hover {
+          color: color(primary);
+        }
+      }
+
+      &:hover {
+        color: color(light);
+      }
+    }
+  }
+
+  form.form-inline > div {
+    width: 100%;
+  }
+
+  .form-inline .form-check.stix-options {
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .stix-option {
+      text-align: center;
+      margin-right: 0.5em;
+      @include display-flex(column);
+
+      > input.form-check-input {
+        margin-right: 0;
+      }
+
+      > img {
+        width: 1.5em;
+        height: 1.5em;
+      }
+    }
+  }
+
+  .bordered-bottom {
+    position: relative;
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: $border-size;
+      background-color: color(dark);
+    }
+  }
+
+  .col-fixed-height {
+    line-height: 2rem;
+  }
+
+  .form-help {
+    display: block;
+    width: 100%;
+
+    > small {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1.5rem;
+      float: right;
+
+      @include media-sm() {
+        display: block;
+        float: none;
+      }
+    }
+  }
+}

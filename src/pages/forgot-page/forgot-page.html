@@ -70,7 +70,7 @@
              class="form-control"
              name="password"
              type="password"
-             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$"
+             [pattern]="passwordRegExp"
              [(ngModel)]="newPasswordFormData.password"
              [required]="true"/>
 
@@ -92,7 +92,7 @@
              class="form-control"
              name="password_repeat"
              type="password"
-             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$"
+             [pattern]="passwordRegExp"
              [(ngModel)]="newPasswordFormData.password_repeat"
              [required]="true"/>
 
