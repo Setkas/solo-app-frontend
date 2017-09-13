@@ -1,0 +1,336 @@
+<div class="row">
+  <div class="col-12 col-md-6">
+    <h1 class="h3 mb-3 text-uppercase">
+      {{"client.SEARCH_CLIENT"| translate}}
+    </h1>
+
+    <div class="form-group">
+      <p class="text-muted mb-2 p-0">
+        {{"client.SEARCH_HELP"| translate}}
+      </p>
+
+      <input type="text"
+             class="form-control"
+             name="clientSearch"
+             [(ngModel)]="clientSearch"
+             (ngModelChange)="findClients($event)"/>
+    </div>
+
+    <div>
+      <p *ngIf="clientSearch.length > 0 && searchResultList.length === 0 && !isSearching"
+         class="text-muted text-center p-0">
+        {{"client.NO_CLIENT_FOUND"| translate}}
+      </p>
+
+      <div *ngIf="isSearching"
+           class="text-center">
+        <div class="spinner">
+          <div class="rect1"></div>
+
+          <div class="rect2"></div>
+
+          <div class="rect3"></div>
+
+          <div class="rect4"></div>
+
+          <div class="rect5"></div>
+        </div>
+      </div>
+
+      <button *ngFor="let client of searchResultList"
+              type="button"
+              class="btn btn-outline-primary btn-block overflow-hidden"
+              (click)="selectClient(client.id)">
+        {{client.surname}} {{client.name}}
+
+        <span *ngIf="client.birth_date">
+          ({{client.birth_date| amDateFormat: "MMMM Do YYYY"}})
+        </span>
+
+        - {{client.address}}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="client.details === null"
+       class="col-12 col-md-6">
+    <form #createClientForm="ngForm"
+          (ngSubmit)="createClient()">
+      <h2 class="h3 mb-3 text-uppercase">
+        {{"client.NEW_CLIENT"| translate}}
+      </h2>
+
+      <div class="row">
+        <div class="col-12 col-md-5 form-group">
+          <label for="gender_input"
+                 class="mb-2 required">
+            {{"client.GENDER"| translate}}:
+          </label>
+
+          <select id="gender_input"
+                  class="form-control"
+                  name="gender"
+                  [(ngModel)]="formData.gender"
+                  [required]="true">
+            <option *ngIf="formData.gender === null"
+                    [value]="null">
+              {{"register.SELECT_GENDER"| translate}}
+            </option>
+
+            <option *ngFor="let gender of genderList"
+                    [value]="gender.id">
+              {{"genders." + gender.name| translate}}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-7 form-group">
+          <label for="birth_date_input"
+                 class="mb-2 required">
+            {{"client.BIRTH_DATE"| translate}}:
+          </label>
+
+          <input id="birth_date_input"
+                 type="date"
+                 name="birth_date"
+                 class="form-control"
+                 placeholder="YYYY-MM-DD"
+                 pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+                 [(ngModel)]="formData.birth_date"
+                 [required]="true"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="name_input"
+                 class="mb-2 required">
+            {{"client.NAME"| translate}}:
+          </label>
+
+          <input id="name_input"
+                 type="text"
+                 name="name"
+                 class="form-control"
+                 [(ngModel)]="formData.name"
+                 [required]="true"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="surname_input"
+                 class="mb-2 required">
+            {{"client.SURNAME"| translate}}:
+          </label>
+
+          <input id="surname_input"
+                 type="text"
+                 name="surname"
+                 class="form-control"
+                 [(ngModel)]="formData.surname"
+                 [required]="true"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="phone_input"
+                 class="mb-2">
+            {{"client.PHONE"| translate}}:
+          </label>
+
+          <input id="phone_input"
+                 type="text"
+                 name="phone"
+                 class="form-control"
+                 [(ngModel)]="formData.phone"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="email_input"
+                 class="mb-2">
+            {{"client.EMAIL"| translate}}:
+          </label>
+
+          <input id="email_input"
+                 type="email"
+                 name="email"
+                 class="form-control"
+                 [(ngModel)]="formData.email"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="address_input"
+                 class="mb-2 required">
+            {{"client.ADDRESS"| translate}}:
+          </label>
+
+          <input id="address_input"
+                 type="text"
+                 name="address"
+                 class="form-control"
+                 [(ngModel)]="formData.address"
+                 [required]="true"/>
+        </div>
+      </div>
+
+      <div class="text-right">
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="!createClientForm.valid">
+          {{"general.SAVE"| translate}}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="client.details !== null"
+       class="col-12 col-md-6">
+    <form #editClientForm="ngForm"
+          (ngSubmit)="updateClient()">
+      <h2 class="h3 mb-3 text-uppercase">
+        {{"client.EDIT_CLIENT"| translate}}
+
+        <button type="button"
+                class="btn btn-outline-primary btn-sm float-md-right"
+                (click)="unSelectClient()">
+          <i class="ion ion-md-person-add"></i>
+
+          {{"client.NEW_CLIENT"| translate}}
+        </button>
+      </h2>
+
+      <div class="row">
+        <div class="col-12 col-md-5 form-group">
+          <label for="gender_edit_input"
+                 class="mb-2 required">
+            {{"client.GENDER"| translate}}:
+          </label>
+
+          <select id="gender_edit_input"
+                  class="form-control"
+                  name="gender_edit"
+                  [(ngModel)]="editFormData.gender"
+                  [required]="true">
+            <option *ngIf="editFormData.gender === null"
+                    [value]="null">
+              {{"register.SELECT_GENDER"| translate}}
+            </option>
+
+            <option *ngFor="let gender of genderList"
+                    [value]="gender.id">
+              {{"genders." + gender.name| translate}}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-7 form-group">
+          <label for="birth_date_edit_input"
+                 class="mb-2 required">
+            {{"client.BIRTH_DATE"| translate}}:
+          </label>
+
+          <input id="birth_date_edit_input"
+                 type="date"
+                 name="birth_date_edit"
+                 class="form-control"
+                 placeholder="YYYY-MM-DD"
+                 pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+                 [(ngModel)]="editFormData.birth_date"
+                 [required]="true"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="name_edit_input"
+                 class="mb-2 required">
+            {{"client.NAME"| translate}}:
+          </label>
+
+          <input id="name_edit_input"
+                 type="text"
+                 name="name_edit"
+                 class="form-control"
+                 [(ngModel)]="editFormData.name"
+                 [required]="true"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="surname_edit_input"
+                 class="mb-2 required">
+            {{"client.SURNAME"| translate}}:
+          </label>
+
+          <input id="surname_edit_input"
+                 type="text"
+                 name="surname_edit"
+                 class="form-control"
+                 [(ngModel)]="editFormData.surname"
+                 [required]="true"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="phone_edit_input"
+                 class="mb-2">
+            {{"client.PHONE"| translate}}:
+          </label>
+
+          <input id="phone_edit_input"
+                 type="text"
+                 name="phone_edit"
+                 class="form-control"
+                 [(ngModel)]="editFormData.phone"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="email_edit_input"
+                 class="mb-2">
+            {{"client.EMAIL"| translate}}:
+          </label>
+
+          <input id="email_edit_input"
+                 type="email"
+                 name="email_edit"
+                 class="form-control"
+                 [(ngModel)]="editFormData.email"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="address_edit_input"
+                 class="mb-2 required">
+            {{"client.ADDRESS"| translate}}:
+          </label>
+
+          <input id="address_edit_input"
+                 type="text"
+                 name="address_edit"
+                 class="form-control"
+                 [(ngModel)]="editFormData.address"
+                 [required]="true"/>
+        </div>
+      </div>
+
+      <div class="text-right">
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="!editClientForm.valid || !areChanges()">
+          {{"general.SAVE"| translate}}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

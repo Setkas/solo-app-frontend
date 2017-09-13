@@ -120,6 +120,22 @@
     "PRACTICE_SAVED": "Practice data were successfully updated.",
     "DEFAULT_COLOR": "Default Color"
   },
+  "client": {
+    "SEARCH_CLIENT": "Search for Client",
+    "SEARCH_HELP": "Please enter the first or last name separated by comma...",
+    "NEW_CLIENT": "New Client",
+    "NEW_CLIENT_CREATED": "New client was successfully created.",
+    "NAME": "Name",
+    "SURNAME": "Surname",
+    "PHONE": "Phone",
+    "EMAIL": "Email Address",
+    "ADDRESS": "Full Address",
+    "GENDER": "Gender",
+    "BIRTH_DATE": "Birth Date",
+    "NO_CLIENT_FOUND": "No clients found...",
+    "EDIT_CLIENT": "Edit Client",
+    "CLIENT_EDIT_SUCCESS": "Client data were successfully updated."
+  },
   "genders": {
     "MALE": "Male",
     "FEMALE": "Female"
@@ -148,6 +164,9 @@
     "ACCESS_TOKEN_INVALID": "Invalid access token provided.",
     "INVALID_ACCESS": "Invalid access to backend server detected.",
     "USER_CREATION_ERROR": "User could not be successfully created.",
-    "PRACTICE_EDIT_ERROR": "Could not update practice data."
+    "PRACTICE_EDIT_ERROR": "Could not update practice data.",
+    "CLIENT_CREATION_ERROR": "Could not create new client.",
+    "SELECT_CLIENT_ERROR": "Could not select client.",
+    "CLIENT_UPDATE_ERROR": "Could not update client data."
   }
 }

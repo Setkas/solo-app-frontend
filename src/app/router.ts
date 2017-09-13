@@ -1,5 +1,5 @@
 import {Routes} from "@angular/router";
-import {HomePage, LoginPage, NotFoundPage, RegisterPage, ForgotPage, SettingsPage} from "../pages/";
+import {HomePage, LoginPage, NotFoundPage, RegisterPage, ForgotPage, SettingsPage, ClientPage} from "../pages/";
 import {AuthGuard} from "../guards";
 
 export const Router: Routes = [
@@ -25,6 +25,13 @@ export const Router: Routes = [
   {
     path: 'settings',
     component: SettingsPage,
+    canActivate: [
+      AuthGuard
+    ]
+  },
+  {
+    path: 'client',
+    component: ClientPage,
     canActivate: [
       AuthGuard
     ]

@@ -22,7 +22,7 @@ import {
   ModalComponent,
   ModalProvider
 } from "../components";
-import {HomePage, NotFoundPage, LoginPage, RegisterPage, ForgotPage, SettingsPage} from "../pages";
+import {HomePage, NotFoundPage, LoginPage, RegisterPage, ForgotPage, SettingsPage, ClientPage} from "../pages";
 import {Variables} from "./variables";
 import {AuthGuard} from "../guards";
 import {MomentModule} from "angular2-moment";
@@ -42,7 +42,8 @@ import {MomentModule} from "angular2-moment";
     ModalComponent,
     RegisterPage,
     ForgotPage,
-    SettingsPage
+    SettingsPage,
+    ClientPage
   ],
   imports: [
     BrowserModule,

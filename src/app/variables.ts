@@ -193,5 +193,6 @@ export const Variables: {[key: string]: any} = {
       "name": "3_MONTHS_BEFORE",
       "value": 3
     }
-  ]
+  ],
+  "searchTimeout": 0.5
 };
