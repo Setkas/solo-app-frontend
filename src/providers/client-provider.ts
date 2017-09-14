@@ -145,7 +145,7 @@ export class ClientProvider {
 
         resolve();
       }, (error: HttpErrorResponse) => {
-        //this.auth.handleHttpError(error);
+        this.auth.handleHttpError(error);
 
         let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
 
@@ -193,15 +193,23 @@ export class ClientProvider {
   }
 
   private checkStorage(): void {
+    let stored: number = this.getStored();
+
+    if (stored !== null) {
+      this.select(stored).catch(() => {
+        LoggerProvider.Error("[CLIENT]: Unable to select saved client from storage.");
+
+        this.unSelect(true);
+      });
+    }
+  }
+
+  public getStored(): number {
     if (this.cookie.check(this.cookieKey)) {
       let value: string = this.cookie.get(this.cookieKey);
 
       if (value) {
-        this.select(parseInt(value)).catch(() => {
-          LoggerProvider.Error("[CLIENT]: Unable to select saved client from storage.");
-
-          this.unSelect(true);
-        });
+        return parseInt(value);
       } else {
         LoggerProvider.Error("[CLIENT]: Unable to load saved client data.");
 

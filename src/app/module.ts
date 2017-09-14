@@ -11,7 +11,16 @@ import {AppComponent} from './app-component';
 import {Router} from "./router";
 import {environment} from "../environments/environment";
 import {ReplaceValuePipe, ConvertNumberPipe} from "../pipes";
-import {LoggerProvider, AuthProvider, PracticeProvider, ClientProvider, UserProvider, SetupProvider} from "../providers";
+import {
+  LoggerProvider,
+  AuthProvider,
+  PracticeProvider,
+  ClientProvider,
+  UserProvider,
+  SetupProvider,
+  TermProvider,
+  UtilsProvider
+} from "../providers";
 import {
   FlashComponent,
   FlashProvider,
@@ -20,11 +29,21 @@ import {
   SlideToggleComponent,
   MenuComponent,
   ModalComponent,
-  ModalProvider
+  ModalProvider,
+  TeethCrossComponent
 } from "../components";
-import {HomePage, NotFoundPage, LoginPage, RegisterPage, ForgotPage, SettingsPage, ClientPage} from "../pages";
+import {
+  HomePage,
+  NotFoundPage,
+  LoginPage,
+  RegisterPage,
+  ForgotPage,
+  SettingsPage,
+  ClientPage,
+  TeethPage
+} from "../pages";
 import {Variables} from "./variables";
-import {AuthGuard} from "../guards";
+import {AuthGuard, ClientGuard} from "../guards";
 import {MomentModule} from "angular2-moment";
 
 @NgModule({
@@ -43,7 +62,9 @@ import {MomentModule} from "angular2-moment";
     RegisterPage,
     ForgotPage,
     SettingsPage,
-    ClientPage
+    ClientPage,
+    TeethPage,
+    TeethCrossComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +102,10 @@ import {MomentModule} from "angular2-moment";
     PracticeProvider,
     ClientProvider,
     UserProvider,
-    SetupProvider
+    SetupProvider,
+    ClientGuard,
+    TermProvider,
+    UtilsProvider
   ],
   bootstrap: [
     AppComponent

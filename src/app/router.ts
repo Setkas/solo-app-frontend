@@ -1,6 +1,6 @@
 import {Routes} from "@angular/router";
-import {HomePage, LoginPage, NotFoundPage, RegisterPage, ForgotPage, SettingsPage, ClientPage} from "../pages/";
-import {AuthGuard} from "../guards";
+import {HomePage, LoginPage, NotFoundPage, RegisterPage, ForgotPage, SettingsPage, ClientPage, TeethPage} from "../pages/";
+import {AuthGuard, ClientGuard} from "../guards";
 
 export const Router: Routes = [
   {
@@ -34,6 +34,14 @@ export const Router: Routes = [
     component: ClientPage,
     canActivate: [
       AuthGuard
+    ]
+  },
+  {
+    path: 'teeth',
+    component: TeethPage,
+    canActivate: [
+      AuthGuard,
+      ClientGuard
     ]
   },
   {

@@ -1,0 +1,31 @@
+<div class="row">
+  <div *ngFor="let index of upperJaw"
+       class="col"
+       [ngClass]="{'click-able': interactive === true, 'selected': interactive === true && selectedTeeth === index}"
+       (click)="selectTeeth(index)">
+    <i *ngIf="teeth === true"
+       class="teeth-icon"
+       [ngClass]="setIconClass(index)"></i>
+
+    <span class="teeth-number"
+          [ngClass]="{'small': teeth === true, 'none': setHideText(index) === true}">
+      {{(index) < 8 ? 8 - index : index - 7}}
+    </span>
+  </div>
+</div>
+
+<div class="row">
+  <div *ngFor="let index of lowerJaw"
+       class="col"
+       [ngClass]="{'click-able': interactive === true, 'selected': interactive === true && selectedTeeth === index}"
+       (click)="selectTeeth(index)">
+    <span class="teeth-number"
+          [ngClass]="{'small': teeth === true, 'none': setHideText(index) === true}">
+      {{(index) < 24 ? 24 - index : index - 23}}
+    </span>
+
+    <i *ngIf="teeth === true"
+       class="teeth-icon"
+       [ngClass]="setIconClass(index)"></i>
+  </div>
+</div>

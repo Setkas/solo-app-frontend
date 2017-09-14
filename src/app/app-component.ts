@@ -8,6 +8,8 @@ import {AuthProvider} from "../providers/auth-provider";
 import {PracticeDetailsInterface, PracticeProvider} from "../providers/practice-provider";
 import {UserDetailsInterface, UserProvider} from "../providers/user-provider";
 import {SetupDataInterface, SetupProvider} from "../providers/setup-provider";
+import {ClientProvider} from "../providers/client-provider";
+import {TermDataInterface, TermProvider} from "../providers/term-provider";
 
 declare const navigator: Navigator;
 
@@ -42,7 +44,9 @@ export class AppComponent {
               private auth: AuthProvider,
               private practice: PracticeProvider,
               private user: UserProvider,
-              private setup: SetupProvider) {
+              private setup: SetupProvider,
+              private client: ClientProvider,
+              private term: TermProvider) {
     this.initTitle();
 
     this.switchLanguage(this.checkLocale());
@@ -55,7 +59,6 @@ export class AppComponent {
 
         this.practice.$onLoad.emit();
       }, () => {
-
       });
 
       this.user.get().then((data: UserDetailsInterface) => {
@@ -63,11 +66,10 @@ export class AppComponent {
 
         this.user.$onLoad.emit();
       }, () => {
-
       });
 
       this.setup.get().then((data: SetupDataInterface) => {
-        if(Object.keys(data).length === 0) {
+        if (Object.keys(data).length === 0) {
           this.setup.current = JSON.parse(JSON.stringify(Variables.setupDefaults));
         } else {
           this.setup.current = data;
@@ -75,7 +77,26 @@ export class AppComponent {
 
         this.setup.$onLoad.emit();
       }, () => {
+      });
 
+      this.client.$onSelected.subscribe(() => {
+        this.term.get().then((data: TermDataInterface[]) => {
+          if (data.length > 0) {
+            this.term.activeTerm = JSON.parse(JSON.stringify(data[0]));
+
+            this.term.termHistory = data;
+
+            this.term.$onLoad.emit();
+          } else {
+            this.term.activeTerm = this.term.generateEmpty();
+
+            this.term.termHistory = [];
+
+            this.term.$onLoad.emit();
+          }
+        }, () => {
+        });
+      }, () => {
       });
     });
 

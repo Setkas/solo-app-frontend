@@ -4,6 +4,9 @@ import {ClientDetailsInterface, ClientProvider, SearchResultInterface} from "../
 import {FlashProvider} from "../../components/flash-component/flash-provider";
 import {TranslateService} from "@ngx-translate/core";
 import {LoaderProvider} from "../../components/loader-component/loader-provider";
+import {TermDataInterface, TermProvider} from "../../providers/term-provider";
+import {SetupProvider} from "../../providers/setup-provider";
+import {UtilsProvider} from "../../providers/utils-provider";
 
 @Component({
   selector: 'client-page',
@@ -42,49 +45,85 @@ export class ClientPage implements OnInit {
     address: ""
   };
 
+  public termHistory: {name: string, bob: string, term: TermDataInterface}[] = [];
+
   public isSearching: boolean = false;
 
   constructor(public client: ClientProvider,
+              private term: TermProvider,
+              private setup: SetupProvider,
               private flash: FlashProvider,
               private translate: TranslateService,
               private loader: LoaderProvider) {
     client.$onSelected.subscribe(() => {
-      this.editFormData = {
-        gender: this.client.details.gender,
-        birth_date: this.client.details.birth_date,
-        name: this.client.details.name,
-        surname: this.client.details.surname,
-        phone: this.client.details.phone,
-        email: this.client.details.email,
-        address: this.client.details.address
-      };
+      this.loadClientData();
     });
 
     client.$onDeSelected.subscribe(() => {
-      this.editFormData = {
-        gender: null,
-        birth_date: "",
-        name: "",
-        surname: "",
-        phone: "",
-        email: "",
-        address: ""
-      };
+      this.clearEditForm();
+    });
+
+    term.$onLoad.subscribe(() => {
+      this.loadTerms();
     });
   }
 
   ngOnInit() {
     if (this.client.details !== null) {
-      this.editFormData = {
-        gender: this.client.details.gender,
-        birth_date: this.client.details.birth_date,
-        name: this.client.details.name,
-        surname: this.client.details.surname,
-        phone: this.client.details.phone,
-        email: this.client.details.email,
-        address: this.client.details.address
-      };
+      this.loadClientData();
     }
+
+    if (this.term.activeTerm !== null) {
+      this.loadTerms();
+    }
+  }
+
+  private clearEditForm(): void {
+    this.editFormData = {
+      gender: null,
+      birth_date: "",
+      name: "",
+      surname: "",
+      phone: "",
+      email: "",
+      address: ""
+    };
+  }
+
+  private clearForm(): void {
+    this.formData = {
+      gender: null,
+      birth_date: "",
+      name: "",
+      surname: "",
+      phone: "",
+      email: "",
+      address: ""
+    };
+  }
+
+  private loadTerms(): void {
+    this.term.termHistory.forEach((data: TermDataInterface, index: number) => {
+      if (index > 0 && index <= this.setup.current.client_history) {
+        this.termHistory.push({
+          name: this.translate.instant("general.SOLO") + "-" + (this.term.termHistory.length - index),
+          bob: UtilsProvider.CountBob(data.teeth, data.bleed_middle).join("|"),
+          term: data
+        });
+      }
+    });
+  }
+
+  private loadClientData(): void {
+    this.editFormData = {
+      gender: this.client.details.gender,
+      birth_date: this.client.details.birth_date,
+      name: this.client.details.name,
+      surname: this.client.details.surname,
+      phone: this.client.details.phone,
+      email: this.client.details.email,
+      address: this.client.details.address
+    };
   }
 
   public findClients(search: string): void {
@@ -135,15 +174,7 @@ export class ClientPage implements OnInit {
     }).then((clientId: number) => {
       this.loader.hide();
 
-      this.formData = {
-        gender: null,
-        birth_date: "",
-        name: "",
-        surname: "",
-        phone: "",
-        email: "",
-        address: ""
-      };
+      this.clearForm();
 
       this.flash.show({
         content: this.translate.instant("client.NEW_CLIENT_CREATED"),

@@ -1,0 +1,13 @@
+@import "../../themes/imports";
+
+teeth-page {
+  .action-icon {
+    line-height: 2em;
+
+    > i {
+      display: inline-block;
+      font-size: 2em;
+      vertical-align: middle;
+    }
+  }
+}

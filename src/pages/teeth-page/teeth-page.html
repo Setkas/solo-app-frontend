@@ -1,0 +1,93 @@
+<h1 class="h2 text-uppercase">
+  {{client.details?.surname}} {{client.details?.name}}
+
+  <small *ngIf="client.details && client.details.birth_date"
+         class="text-muted text-capitalize">
+    {{client.details.birth_date| amDateFormat:"MMMM Do YYYY"}}
+  </small>
+</h1>
+
+<teeth-cross-component [interactive]="true"
+                       [teeth]="true"
+                       [bleeding]="false"
+                       [teethData]="teethData"
+                       [selectNext]="selectNext"
+                       ($teethSelected)="toothSelect($event)"></teeth-cross-component>
+
+<div class="row">
+  <div class="col-12 col-md-3">
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': isActive('1')}"
+            (click)="setTooth('1')">
+      <i class="sa-tooth-present"></i>
+    </button>
+
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': isActive('0')}"
+            (click)="setTooth('0')">
+      <i class="sa-tooth-missing"></i>
+    </button>
+  </div>
+
+  <div class="col-12 col-md-6 text-md-center">
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': isActive('K')}"
+            (click)="setTooth('K')">
+      <i class="sa-tooth-crown"></i>
+    </button>
+
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': isActive('I')}"
+            (click)="setTooth('I')">
+      <i class="sa-tooth-implant"></i>
+    </button>
+
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': isActive('L')}"
+            (click)="setTooth('L')">
+      <i class="sa-tooth-gap"></i>
+    </button>
+
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': isActive('Y')}"
+            (click)="setTooth('Y')">
+      <i class="sa-tooth-baby"></i>
+    </button>
+
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': isActive('M')}"
+            (click)="setTooth('M')">
+      <i class="sa-tooth-bridge-left"></i>
+    </button>
+
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': isActive('D')}"
+            (click)="setTooth('D')">
+      <i class="sa-tooth-bridge-right"></i>
+    </button>
+  </div>
+
+  <div class="col-12 col-md-3 text-md-right">
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': areBaby()}"
+            (click)="toggleBaby()">
+      <i class="sa-tooth-baby-toggle"></i>
+    </button>
+
+    <button type="button"
+            class="btn btn-outline-primary action-icon mb-2"
+            [ngClass]="{'active': !areEights()}"
+            (click)="toggleEights()">
+      <i class="sa-tooth-eights-toggle"></i>
+    </button>
+  </div>
+</div>

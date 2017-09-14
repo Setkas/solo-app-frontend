@@ -11,4 +11,23 @@ client-page {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .history-block {
+    background-color: transparent;
+    border: ($border-size * 2) solid color(primary);
+    padding: 0.5em;
+    @include border-radius(0.3rem);
+
+    .history-row {
+      display: block;
+      text-align: center;
+      color: color(primary);
+
+      + .history-row {
+        margin-top: 0.25em;
+        padding-top: 0.25em;
+        border-top: ($border-size * 2) solid color(primary);
+      }
+    }
+  }
 }

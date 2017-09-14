@@ -194,5 +194,6 @@ export const Variables: {[key: string]: any} = {
       "value": 3
     }
   ],
-  "searchTimeout": 0.5
+  "searchTimeout": 0.5,
+  "saveTimeout": 2.5
 };

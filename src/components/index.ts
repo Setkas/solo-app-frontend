@@ -6,3 +6,4 @@ export * from "./slide-toggle-component/slide-toggle-component";
 export * from "./menu-component/menu-component";
 export * from "./modal-component/modal-component";
 export * from "./modal-component/modal-provider";
+export * from "./teeth-cross-component/teeth-cross-component";

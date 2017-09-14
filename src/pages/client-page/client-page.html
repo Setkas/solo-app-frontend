@@ -334,3 +334,28 @@
     </form>
   </div>
 </div>
+
+<h3 *ngIf="termHistory.length > 0"
+    class="h3 mb-3 text-uppercase">
+  {{"client.BOB_HISTORY"| translate}}
+</h3>
+
+<div *ngIf="termHistory.length > 0"
+     class="row">
+  <div *ngFor="let termData of termHistory"
+       class="col-12 col-md-2">
+    <div class="history-block">
+      <div class="history-row overflow-hidden text-uppercase">
+        {{termData.name}}
+      </div>
+
+      <div class="history-row overflow-hidden">
+        {{termData.bob}}
+      </div>
+
+      <div class="history-row overflow-hidden">
+        {{termData.term.date| amDateFormat:"MMM Do YYYY"}}
+      </div>
+    </div>
+  </div>
+</div>

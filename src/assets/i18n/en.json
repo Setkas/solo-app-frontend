@@ -10,7 +10,8 @@
     "SUCCESS": "Success",
     "SAVE": "Save",
     "YES": "Yes",
-    "NO": "No"
+    "NO": "No",
+    "SOLO": "Solo"
   },
   "menu": {
     "CLIENT": "Client",
@@ -134,7 +135,8 @@
     "BIRTH_DATE": "Birth Date",
     "NO_CLIENT_FOUND": "No clients found...",
     "EDIT_CLIENT": "Edit Client",
-    "CLIENT_EDIT_SUCCESS": "Client data were successfully updated."
+    "CLIENT_EDIT_SUCCESS": "Client data were successfully updated.",
+    "BOB_HISTORY": "BOB History"
   },
   "genders": {
     "MALE": "Male",
@@ -167,6 +169,7 @@
     "PRACTICE_EDIT_ERROR": "Could not update practice data.",
     "CLIENT_CREATION_ERROR": "Could not create new client.",
     "SELECT_CLIENT_ERROR": "Could not select client.",
-    "CLIENT_UPDATE_ERROR": "Could not update client data."
+    "CLIENT_UPDATE_ERROR": "Could not update client data.",
+    "NO_CLIENT_SELECTED": "Could not load data, no client selected."
   }
 }
