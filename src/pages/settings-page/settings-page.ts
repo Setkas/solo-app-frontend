@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {Variables} from "../../app/variables";
 import {UserProvider} from "../../providers";
 import {AuthProvider} from "../../providers/auth-provider";
@@ -11,6 +11,7 @@ import {ModalProvider} from "../../components/modal-component/modal-provider";
 import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {LoaderProvider} from "../../components/loader-component/loader-provider";
 import {PracticeDetailsInterface, PracticeProvider} from "../../providers/practice-provider";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'settings-page',
@@ -20,7 +21,7 @@ import {PracticeDetailsInterface, PracticeProvider} from "../../providers/practi
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage implements OnInit, OnDestroy {
   public activeTab: string = "client";
 
   public formData: SetupDataInterface = {
@@ -88,6 +89,8 @@ export class SettingsPage implements OnInit {
 
   public languageList: LanguageListInterface[] = Variables.translator.languageList;
 
+  private subs: Subscription[] = [];
+
   constructor(private translate: TranslateService,
               private flash: FlashProvider,
               public auth: AuthProvider,
@@ -96,65 +99,66 @@ export class SettingsPage implements OnInit {
               private modal: ModalProvider,
               private loader: LoaderProvider,
               public practice: PracticeProvider) {
-    setup.$onLoad.subscribe(() => {
+    this.subs.push(setup.$onLoad.subscribe(() => {
       this.dataLoad();
-    });
+    }));
 
     this.positionList = this.loadPositions(this.translate.currentLang);
 
-    this.translate.onLangChange.subscribe(() => {
+    this.subs.push(this.translate.onLangChange.subscribe(() => {
       this.positionList = this.loadPositions(this.translate.currentLang);
-    });
+    }));
 
-    this.user.$onLoad.subscribe(() => {
-      this.userEditFormData = {
-        title: this.user.details.title,
-        name: this.user.details.name,
-        surname: this.user.details.surname,
-        position_id: this.user.details.position_id
-      };
-    });
+    this.subs.push(this.user.$onLoad.subscribe(() => {
+      this.setUserEditData();
+    }));
 
-    this.practice.$onLoad.subscribe(() => {
-      let source: PracticeDetailsInterface = JSON.parse(JSON.stringify(this.practice.details));
-
-      this.practiceEditFormData = {
-        company: source.company,
-        address: source.address,
-        phone: source.phone,
-        contact_email: source.contact_email,
-        webpages: source.webpages,
-        language_id: source.language_id,
-        system_email: source.system_email
-      };
-    });
+    this.subs.push(this.practice.$onLoad.subscribe(() => {
+      this.setPracticeEditData();
+    }));
   }
 
   ngOnInit() {
     this.dataLoad();
 
     if (this.user.details !== null) {
-      this.userEditFormData = {
-        title: this.user.details.title,
-        name: this.user.details.name,
-        surname: this.user.details.surname,
-        position_id: this.user.details.position_id
-      };
+      this.setUserEditData();
     }
 
     if (this.practice.details !== null) {
-      let source: PracticeDetailsInterface = JSON.parse(JSON.stringify(this.practice.details));
-
-      this.practiceEditFormData = {
-        company: source.company,
-        address: source.address,
-        phone: source.phone,
-        contact_email: source.contact_email,
-        webpages: source.webpages,
-        language_id: source.language_id,
-        system_email: source.system_email
-      };
+      this.setPracticeEditData();
     }
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((sub: Subscription) => {
+      sub.unsubscribe();
+    });
+  }
+
+  private setPracticeEditData(): void {
+    let source: PracticeDetailsInterface = JSON.parse(JSON.stringify(this.practice.details));
+
+    this.practiceEditFormData = {
+      company: source.company,
+      address: source.address,
+      phone: source.phone,
+      contact_email: source.contact_email,
+      webpages: source.webpages,
+      language_id: source.language_id,
+      system_email: source.system_email
+    };
+  }
+
+  private setUserEditData(): void {
+    let source: UserDetailsInterface = JSON.parse(JSON.stringify(this.user.details));
+
+    this.userEditFormData = {
+      title: source.title,
+      name: source.name,
+      surname: source.surname,
+      position_id: source.position_id
+    };
   }
 
   private loadPositions(lang: string = Variables.translator.languageDefault): PositionListInterface[] {

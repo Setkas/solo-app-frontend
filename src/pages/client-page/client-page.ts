@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, OnDestroy} from '@angular/core';
 import {Variables} from "../../app/variables";
 import {ClientDetailsInterface, ClientProvider, SearchResultInterface} from "../../providers/client-provider";
 import {FlashProvider} from "../../components/flash-component/flash-provider";
@@ -7,6 +7,7 @@ import {LoaderProvider} from "../../components/loader-component/loader-provider"
 import {TermDataInterface, TermProvider} from "../../providers/term-provider";
 import {SetupProvider} from "../../providers/setup-provider";
 import {UtilsProvider} from "../../providers/utils-provider";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'client-page',
@@ -16,7 +17,7 @@ import {UtilsProvider} from "../../providers/utils-provider";
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class ClientPage implements OnInit {
+export class ClientPage implements OnInit, OnDestroy {
   public clientSearch: string = "";
 
   private searchTimeout: any = null;
@@ -49,23 +50,25 @@ export class ClientPage implements OnInit {
 
   public isSearching: boolean = false;
 
+  private subs: Subscription[] = [];
+
   constructor(public client: ClientProvider,
               private term: TermProvider,
               private setup: SetupProvider,
               private flash: FlashProvider,
               private translate: TranslateService,
               private loader: LoaderProvider) {
-    client.$onSelected.subscribe(() => {
+    this.subs.push(client.$onSelected.subscribe(() => {
       this.loadClientData();
-    });
+    }));
 
-    client.$onDeSelected.subscribe(() => {
+    this.subs.push(client.$onDeSelected.subscribe(() => {
       this.clearEditForm();
-    });
+    }));
 
-    term.$onLoad.subscribe(() => {
+    this.subs.push(term.$onLoad.subscribe(() => {
       this.loadTerms();
-    });
+    }));
   }
 
   ngOnInit() {
@@ -76,6 +79,12 @@ export class ClientPage implements OnInit {
     if (this.term.activeTerm !== null) {
       this.loadTerms();
     }
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((sub: Subscription) => {
+      sub.unsubscribe();
+    });
   }
 
   private clearEditForm(): void {
@@ -103,6 +112,8 @@ export class ClientPage implements OnInit {
   }
 
   private loadTerms(): void {
+    this.termHistory = [];
+
     this.term.termHistory.forEach((data: TermDataInterface, index: number) => {
       if (index > 0 && index <= this.setup.current.client_history) {
         this.termHistory.push({
@@ -115,14 +126,16 @@ export class ClientPage implements OnInit {
   }
 
   private loadClientData(): void {
+    let source: ClientDetailsInterface = JSON.parse(JSON.stringify(this.client.details));
+
     this.editFormData = {
-      gender: this.client.details.gender,
-      birth_date: this.client.details.birth_date,
-      name: this.client.details.name,
-      surname: this.client.details.surname,
-      phone: this.client.details.phone,
-      email: this.client.details.email,
-      address: this.client.details.address
+      gender: source.gender,
+      birth_date: source.birth_date,
+      name: source.name,
+      surname: source.surname,
+      phone: source.phone,
+      email: source.email,
+      address: source.address
     };
   }
 
