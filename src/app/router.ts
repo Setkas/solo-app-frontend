@@ -8,7 +8,8 @@ import {
   SettingsPage,
   ClientPage,
   TeethPage,
-  BleedPage
+  BleedPage,
+  TherapyPage
 } from "../pages/";
 import {AuthGuard, ClientGuard} from "../guards";
 
@@ -57,6 +58,14 @@ export const Router: Routes = [
   {
     path: 'bleed',
     component: BleedPage,
+    canActivate: [
+      AuthGuard,
+      ClientGuard
+    ]
+  },
+  {
+    path: 'therapy',
+    component: TherapyPage,
     canActivate: [
       AuthGuard,
       ClientGuard

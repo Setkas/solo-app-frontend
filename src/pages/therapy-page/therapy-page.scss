@@ -1,0 +1,16 @@
+@import "../../themes/imports";
+
+therapy-page {
+  .stix-button {
+    padding: 0.25em;
+
+    &:not(:last-child) {
+      margin-right: 0.5em;
+    }
+
+    > img {
+      width: 2em;
+      height: 2em;
+    }
+  }
+}

@@ -41,7 +41,8 @@ import {
   SettingsPage,
   ClientPage,
   TeethPage,
-  BleedPage
+  BleedPage,
+  TherapyPage
 } from "../pages";
 import {Variables} from "./variables";
 import {AuthGuard, ClientGuard} from "../guards";
@@ -66,7 +67,8 @@ import {MomentModule} from "angular2-moment";
     ClientPage,
     TeethPage,
     TeethCrossComponent,
-    BleedPage
+    BleedPage,
+    TherapyPage
   ],
   imports: [
     BrowserModule,

@@ -60,6 +60,10 @@ export class BleedPage implements OnInit, OnDestroy {
     if (this.term.activeTerm) {
       this.loadData();
     }
+
+    if (this.setup.current !== null) {
+      this.selectedStix = JSON.parse(JSON.stringify(this.setup.current.therapy_color));
+    }
   }
 
   ngOnDestroy() {
@@ -254,6 +258,10 @@ export class BleedPage implements OnInit, OnDestroy {
   public stixSelected(index: number): void {
     if (this.selectedStix === null) {
       return;
+    }
+
+    if (JSON.stringify(this.term.activeTerm.stix) === JSON.stringify(this.term.activeTerm.pass)) {
+      this.term.activeTerm.pass[index] = this.selectedStix;
     }
 
     this.term.activeTerm.stix[index] = this.selectedStix;

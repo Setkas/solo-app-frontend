@@ -1,0 +1,25 @@
+<h1 class="h2 text-uppercase">
+  {{client.details?.surname}} {{client.details?.name}}
+
+  <small *ngIf="client.details && client.details.birth_date"
+         class="text-muted text-capitalize">
+    {{client.details.birth_date| amDateFormat:"MMMM Do YYYY"}}
+  </small>
+</h1>
+
+<teeth-cross-component [interactive]="false"
+                       [teeth]="false"
+                       [bleeding]="false"
+                       [stix]="true"
+                       [stixData]="passData"
+                       [teethData]="teethData"
+                       ($stixSelected)="stixSelected($event)"></teeth-cross-component>
+
+<div class="text-center">
+  <button *ngFor="let stix of stixList"
+          class="btn btn-lg btn-outline-primary stix-button mb-2"
+          [ngClass]="{'active': selectedStix === stix.value}"
+          (click)="selectedStix = stix.value">
+    <img [src]="stix.image">
+  </button>
+</div>
