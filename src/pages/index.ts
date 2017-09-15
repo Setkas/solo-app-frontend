@@ -6,3 +6,4 @@ export * from "./forgot-page/forgot-page";
 export * from "./settings-page/settings-page";
 export * from "./client-page/client-page";
 export * from "./teeth-page/teeth-page";
+export * from "./bleed-page/bleed-page";

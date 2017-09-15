@@ -12,6 +12,7 @@ import {NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {LoaderProvider} from "../../components/loader-component/loader-provider";
 import {PracticeDetailsInterface, PracticeProvider} from "../../providers/practice-provider";
 import {Subscription} from "rxjs/Subscription";
+import {StixInterface, UtilsProvider} from "../../providers/utils-provider";
 
 @Component({
   selector: 'settings-page',
@@ -75,7 +76,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     5
   ];
 
-  public therapyColorNumeral: {value: number, preview: string, image: string}[] = Variables.stixList;
+  public therapyColorNumeral: StixInterface[] = UtilsProvider.LoadStixOrder();
 
   public clientReminderNumeral: {value: number, name: string}[] = Variables.clientReminders;
 
@@ -174,11 +175,14 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   private dataLoad() {
+    let source: SetupDataInterface = JSON.parse(JSON.stringify(this.setup.current)),
+      defaults: SetupDataInterface = JSON.parse(JSON.stringify(Variables.setupDefaults));
+
     this.formData = {
-      client_history: ((this.setup.current && this.setup.current.client_history) ? this.setup.current.client_history : Variables.setupDefaults.client_history),
-      client_reminder: ((this.setup.current && this.setup.current.client_reminder) ? this.setup.current.client_reminder : Variables.setupDefaults.client_reminder),
-      notes_history: ((this.setup.current && this.setup.current.notes_history) ? this.setup.current.notes_history : Variables.setupDefaults.notes_history),
-      therapy_color: ((this.setup.current && this.setup.current.therapy_color) ? this.setup.current.therapy_color : Variables.setupDefaults.therapy_color)
+      client_history: ((this.setup.current && this.setup.current.client_history) ? source.client_history : defaults.client_history),
+      client_reminder: ((this.setup.current && this.setup.current.client_reminder) ? source.client_reminder : defaults.client_reminder),
+      notes_history: ((this.setup.current && this.setup.current.notes_history) ? source.notes_history : defaults.notes_history),
+      therapy_color: ((this.setup.current && this.setup.current.therapy_color) ? source.therapy_color : defaults.therapy_color)
     };
 
     this.inputData = JSON.parse(JSON.stringify(this.formData));

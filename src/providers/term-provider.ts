@@ -141,8 +141,6 @@ export class TermProvider {
             let update: Object = {};
 
             for (let key in this.activeTerm) {
-              console.log();
-
               if (JSON.stringify(this.activeTerm[key]) !== JSON.stringify(this.termHistory[0][key])) {
                 update[key] = this.activeTerm[key];
               }
@@ -212,8 +210,6 @@ export class TermProvider {
       stix: JSON.parse(JSON.stringify(stix)),
       pass: JSON.parse(JSON.stringify(stix)),
       tartar: [
-        false,
-        false,
         false,
         false
       ],

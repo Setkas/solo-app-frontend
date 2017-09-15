@@ -138,6 +138,14 @@
     "CLIENT_EDIT_SUCCESS": "Client data were successfully updated.",
     "BOB_HISTORY": "BOB History"
   },
+  "bleed": {
+    "TARTAR": "Tartar",
+    "UJ": "UJ",
+    "LJ": "LJ",
+    "BOB": "BOB",
+    "ORAL": "Oral",
+    "BUCCAL": "Buccal"
+  },
   "genders": {
     "MALE": "Male",
     "FEMALE": "Female"

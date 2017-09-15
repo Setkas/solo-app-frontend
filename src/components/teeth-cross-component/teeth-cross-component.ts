@@ -3,6 +3,19 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
+import {Variables} from "../../app/variables";
+
+export interface TeethBleedingInterface {
+  inner: boolean[],
+  outer: boolean[],
+  middle: boolean[]
+}
+
+export interface BleedChangeInterface {
+  type: string,
+  index: number,
+  value: boolean
+}
 
 @Component({
   selector: 'teeth-cross-component',
@@ -17,13 +30,27 @@ export class TeethCrossComponent implements OnInit, OnChanges {
 
   @Input() public teeth: boolean = false;
 
-  @Input() private bleeding: boolean = true;
+  @Input() public bleeding: boolean = true;
+
+  @Input() public stix: boolean = false;
 
   @Input() private teethData: string[] = [];
+
+  @Input() private stixData: number[] = [];
+
+  @Input() private bleedData: TeethBleedingInterface = {
+    inner: [],
+    outer: [],
+    middle: []
+  };
 
   @Input() private selectNext: boolean = false;
 
   @Output() public $teethSelected: EventEmitter<number> = new EventEmitter();
+
+  @Output() public $bleedingChanged: EventEmitter<BleedChangeInterface> = new EventEmitter();
+
+  @Output() public $stixSelected: EventEmitter<number> = new EventEmitter();
 
   public upperJaw: number[] = TeethCrossComponent.GenerateArray(0, 1, 16);
 
@@ -136,7 +163,7 @@ export class TeethCrossComponent implements OnInit, OnChanges {
     return ret;
   }
 
-  public setHideText(index: number): boolean {
+  public setHideText(index: number, gap: boolean = false): boolean {
     if (this.teethData.length <= index) {
       return;
     }
@@ -148,8 +175,71 @@ export class TeethCrossComponent implements OnInit, OnChanges {
         ret = true;
 
         break;
+
+      case "L":
+        ret = (gap === true);
+
+        break;
     }
 
     return ret;
+  }
+
+  public setHideItem(index: number, prev: boolean = false): boolean {
+    let next: number = (index < 16) ? index - 1 : index + 1;
+
+    if (this.teethData.length <= index || (prev && this.teethData.length <= next)) {
+      return true;
+    }
+
+    let ret: boolean = false;
+
+    if (["0", "L"].indexOf(this.teethData[index]) >= 0) {
+      ret = true;
+    } else if (prev && this.teethData[next] === "0") {
+      ret = true;
+    }
+
+    return ret;
+  }
+
+  public toggleBleeding(type: string, index: number): void {
+    if (this.bleedData === null || Object.keys(this.bleedData).indexOf(type) < 0 || this.bleedData[type].length < index) {
+      return;
+    }
+
+    this.$bleedingChanged.emit({
+      value: !this.bleedData[type][index],
+      index: index,
+      type: type
+    });
+  }
+
+  public isBleed(type: string, index: number): boolean {
+    if (this.bleedData === null || Object.keys(this.bleedData).indexOf(type) < 0 || this.bleedData[type].length < index) {
+      return false;
+    }
+
+    return this.bleedData[type][index];
+  }
+
+  public stixImageSrc(index: number): string {
+    if (this.stixData === null || this.stixData.length < index) {
+      return;
+    }
+
+    let url: string = "";
+
+    Variables.stixList.forEach((stix: {value: number, preview: string, image: string}) => {
+      if (this.stixData[index] == stix.value) {
+        url = stix.preview;
+      }
+    });
+
+    return url;
+  }
+
+  public setStix(index: number): void {
+    this.$stixSelected.emit(index);
   }
 }

@@ -1,0 +1,30 @@
+@import "../../themes/imports";
+
+bleed-page {
+  .tartar-block {
+    line-height: 2em;
+
+    .tartar-toggle {
+      padding: 0.25em 0.5em;
+      line-height: 1em;
+      vertical-align: middle;
+    }
+
+    > span {
+      vertical-align: middle;
+    }
+  }
+
+  .stix-button {
+    padding: 0.25em;
+
+    &:not(:last-child) {
+      margin-right: 0.5em;
+    }
+
+    > img {
+      width: 2em;
+      height: 2em;
+    }
+  }
+}

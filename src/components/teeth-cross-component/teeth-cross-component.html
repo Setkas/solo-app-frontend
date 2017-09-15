@@ -8,9 +8,30 @@
        [ngClass]="setIconClass(index)"></i>
 
     <span class="teeth-number"
-          [ngClass]="{'small': teeth === true, 'none': setHideText(index) === true}">
+          [ngClass]="{'small': teeth === true, 'none': setHideText(index, bleeding) === true}">
       {{(index) < 8 ? 8 - index : index - 7}}
     </span>
+
+    <div *ngIf="bleeding === true && setHideItem(index) === false"
+         class="bleed-box inner"
+         [ngClass]="{'selected': isBleed('inner', index)}"
+         (click)="toggleBleeding('inner', index)"></div>
+
+    <div *ngIf="bleeding === true && index !== 0 && setHideItem(index, true) === false"
+         class="bleed-box middle"
+         [ngClass]="{'selected': isBleed('middle', index - 1)}"
+         (click)="toggleBleeding('middle', index - 1)"></div>
+
+    <div *ngIf="bleeding === true && setHideItem(index) === false"
+         class="bleed-box outer"
+         [ngClass]="{'selected': isBleed('outer', index)}"
+         (click)="toggleBleeding('outer', index)"></div>
+
+    <div *ngIf="stix === true && index !== 0 && setHideItem(index, true) === false"
+         class="stix-box"
+         (click)="setStix(index - 1)">
+      <img [src]="stixImageSrc(index - 1)">
+    </div>
   </div>
 </div>
 
@@ -20,12 +41,33 @@
        [ngClass]="{'click-able': interactive === true, 'selected': interactive === true && selectedTeeth === index}"
        (click)="selectTeeth(index)">
     <span class="teeth-number"
-          [ngClass]="{'small': teeth === true, 'none': setHideText(index) === true}">
+          [ngClass]="{'small': teeth === true, 'none': setHideText(index, bleeding) === true}">
       {{(index) < 24 ? 24 - index : index - 23}}
     </span>
 
     <i *ngIf="teeth === true"
        class="teeth-icon"
        [ngClass]="setIconClass(index)"></i>
+
+    <div *ngIf="bleeding === true && setHideItem(index) === false"
+         class="bleed-box inner reverse"
+         [ngClass]="{'selected': isBleed('inner', index)}"
+         (click)="toggleBleeding('inner', index)"></div>
+
+    <div *ngIf="bleeding === true && index !== 31 && setHideItem(index, true) === false"
+         class="bleed-box middle"
+         [ngClass]="{'selected': isBleed('middle', index - 1)}"
+         (click)="toggleBleeding('middle', index - 1)"></div>
+
+    <div *ngIf="bleeding === true && setHideItem(index) === false"
+         class="bleed-box outer reverse"
+         [ngClass]="{'selected': isBleed('outer', index)}"
+         (click)="toggleBleeding('outer', index)"></div>
+
+    <div *ngIf="stix === true && index !== 31 && setHideItem(index, true) === false"
+         class="stix-box reverse"
+         (click)="setStix(index - 1)">
+      <img [src]="stixImageSrc(index - 1)">
+    </div>
   </div>
 </div>

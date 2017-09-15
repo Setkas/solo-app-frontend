@@ -1,0 +1,104 @@
+<h1 class="h2 text-uppercase">
+  {{client.details?.surname}} {{client.details?.name}}
+
+  <small *ngIf="client.details && client.details.birth_date"
+         class="text-muted text-capitalize">
+    {{client.details.birth_date| amDateFormat:"MMMM Do YYYY"}}
+  </small>
+</h1>
+
+<p class="mb-0">
+  <span *ngIf="soloBleed !== null">
+    {{"general.SOLO"| translate}}
+
+    {{"bleed.ORAL"| translate}}: {{soloBleed.inner[0]}}|{{soloBleed.inner[1]}}
+  </span>
+
+  <span *ngIf="soloBleed !== null"
+        class="ml-3">
+    {{"general.SOLO"| translate}}
+
+    {{"bleed.BUCCAL"| translate}}: {{soloBleed.outer[0]}}|{{soloBleed.outer[1]}}
+  </span>
+
+  <span *ngIf="bobData !== null"
+        class="ml-3">
+    {{"bleed.BOB"| translate}}: {{bobData[0]}}|{{bobData[1]}}
+  </span>
+</p>
+
+<teeth-cross-component [interactive]="false"
+                       [teeth]="false"
+                       [bleeding]="true"
+                       [teethData]="teethData"
+                       [bleedData]="bleedData"
+                       ($bleedingChanged)="bleedingChanged($event)"></teeth-cross-component>
+
+<div class="row">
+  <div *ngIf="tartarData"
+       class="col-12 col-md-6 text-uppercase tartar-block">
+    <span>
+      {{"bleed.TARTAR"| translate}}:
+    </span>
+
+    <span class="ml-3">
+      {{"bleed.UJ"| translate}}
+    </span>
+
+    <button class="btn btn-sm btn-outline-primary tartar-toggle"
+            [ngClass]="{'active': tartarData[0] === true}"
+            (click)="toggleTartar(0, !tartarData[0])">
+      <i class="ion"
+         [ngClass]="{'ion-md-checkmark': tartarData[0] === true, 'ion-md-close': tartarData[0] !== true}"></i>
+    </button>
+
+    <span class="ml-2">
+      {{"bleed.LJ"| translate}}
+    </span>
+
+    <button class="btn btn-sm btn-outline-primary tartar-toggle"
+            [ngClass]="{'active': tartarData[1] === true}"
+            (click)="toggleTartar(1, !tartarData[1])">
+      <i class="ion"
+         [ngClass]="{'ion-md-checkmark': tartarData[1] === true, 'ion-md-close': tartarData[1] !== true}"></i>
+    </button>
+  </div>
+
+  <div class="col-12 col-md-6 text-md-right">
+    <button *ngIf="bobData !== null"
+            class="btn btn-sm btn-outline-primary mr-2"
+            [ngClass]="{'active': bobData[0] <= bobData[1]}"
+            (click)="setBob('middle', !(bobData[0] <= bobData[1]))">
+      {{"bleed.BOB"| translate}} {{bobData[0]}}|{{(bobData[0] <= bobData[1]) ? 0 : bobData[0]}}
+    </button>
+
+    <button class="btn btn-sm btn-outline-primary mr-2"
+            [ngClass]="{'active': isBleed('inner')}"
+            (click)="setBob('inner', !isBleed('inner'))">
+      {{"general.SOLO"| translate}} {{"bleed.ORAL"| translate}}
+    </button>
+
+    <button class="btn btn-sm btn-outline-primary"
+            [ngClass]="{'active': isBleed('outer')}"
+            (click)="setBob('outer',  !isBleed('outer'))">
+      {{"general.SOLO"| translate}} {{"bleed.BUCCAL"| translate}}
+    </button>
+  </div>
+</div>
+
+<teeth-cross-component [interactive]="false"
+                       [teeth]="false"
+                       [bleeding]="false"
+                       [stix]="true"
+                       [stixData]="stixData"
+                       [teethData]="teethData"
+                       ($stixSelected)="stixSelected($event)"></teeth-cross-component>
+
+<div class="text-center">
+  <button *ngFor="let stix of stixList"
+          class="btn btn-lg btn-outline-primary stix-button mb-2"
+          [ngClass]="{'active': selectedStix === stix.value}"
+          (click)="selectedStix = stix.value">
+    <img [src]="stix.image">
+  </button>
+</div>

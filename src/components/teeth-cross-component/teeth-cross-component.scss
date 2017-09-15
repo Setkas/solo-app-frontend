@@ -6,7 +6,7 @@ teeth-cross-component {
   padding: 0.5em;
   margin: 0.5em 0;
   background-color: color(light);
-  border: ($border-size * 2) solid color(dark);
+  border: 2px solid color(dark);
   @include border-radius(0.3em);
   @include user-select(none);
 
@@ -14,7 +14,7 @@ teeth-cross-component {
     margin: 0;
 
     + .row {
-      border-top: ($border-size * 2) solid color(dark);
+      border-top: 2px solid color(dark);
     }
 
     .col {
@@ -33,17 +33,21 @@ teeth-cross-component {
         left: 0.1em;
         right: 0.1em;
         bottom: 0.1em;
-        border: ($border-size * 2) solid color(primary);
+        border: 2px solid color(primary);
         @include transition(opacity 0.1s linear);
         @include border-radius(0.3em);
       }
 
+      &:not(.click-able):after {
+        display: none;
+      }
+
       &:nth-child(8) {
-        border-right: $border-size solid color(dark);
+        border-right: 1px solid color(dark);
       }
 
       &:nth-child(9) {
-        border-left: $border-size solid color(dark);
+        border-left: 1px solid color(dark);
       }
 
       &.selected:after {
@@ -83,6 +87,79 @@ teeth-cross-component {
 
         &.none {
           opacity: 0;
+        }
+      }
+
+      .bleed-box {
+        position: absolute;
+        background-color: color(light);
+        border: $border-size solid color(dark);
+        cursor: pointer;
+
+        &.selected {
+          background-color: color(danger);
+          border-color: color(danger);
+        }
+
+        &.inner, &.outer {
+          left: 0.6em;
+          height: 0.5em;
+          right: 0.6em;
+        }
+
+        &.inner {
+          bottom: 0.25em;
+
+          &.reverse {
+            bottom: auto;
+            top: 0.25em;
+          }
+        }
+
+        &.outer {
+          top: 0.25em;
+
+          &.reverse {
+            top: auto;
+            bottom: 0.25em;
+          }
+        }
+
+        &.middle {
+          left: -0.25em;
+          top: 0.75em;
+          bottom: 0.75em;
+          width: 0.5em;
+        }
+      }
+
+      .stix-box {
+        position: absolute;
+        cursor: pointer;
+        left: -0.75em;
+        top: 0.25em;
+        width: 1.5em;
+        height: 1.5em;
+
+        &.reverse {
+          top: auto;
+          bottom: 0.25em;
+        }
+
+        > img {
+          display: block;
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+
+      &:nth-child(9) {
+        .bleed-box.middle {
+          left: calc(-0.25em - 1px);
+        }
+
+        .stix-box {
+          left: calc(-0.75em - 1px);
         }
       }
     }

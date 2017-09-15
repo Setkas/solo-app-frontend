@@ -99,75 +99,93 @@ export const Variables: {[key: string]: any} = {
   "stixList": [
     {
       "value": 0,
-      "preview": "./assets/stix/stix-small-0.png"
+      "preview": "./assets/stix/stix-small-0.png",
+      "image": "./assets/stix/stix-0.svg"
     },
     {
       "value": 1,
-      "preview": "./assets/stix/stix-small-1.png"
+      "preview": "./assets/stix/stix-small-1.png",
+      "image": "./assets/stix/stix-1.svg"
     },
     {
       "value": 2,
-      "preview": "./assets/stix/stix-small-2.png"
+      "preview": "./assets/stix/stix-small-2.png",
+      "image": "./assets/stix/stix-2.svg"
     },
     {
       "value": 3,
-      "preview": "./assets/stix/stix-small-3.png"
+      "preview": "./assets/stix/stix-small-3.png",
+      "image": "./assets/stix/stix-3.svg"
     },
     {
       "value": 4,
-      "preview": "./assets/stix/stix-small-4.png"
+      "preview": "./assets/stix/stix-small-4.png",
+      "image": "./assets/stix/stix-4.svg"
     },
     {
       "value": 5,
-      "preview": "./assets/stix/stix-small-5.png"
+      "preview": "./assets/stix/stix-small-5.png",
+      "image": "./assets/stix/stix-5.svg"
     },
     {
       "value": 6,
-      "preview": "./assets/stix/stix-small-6.png"
+      "preview": "./assets/stix/stix-small-6.png",
+      "image": "./assets/stix/stix-6.svg"
     },
     {
       "value": 7,
-      "preview": "./assets/stix/stix-small-7.png"
+      "preview": "./assets/stix/stix-small-7.png",
+      "image": "./assets/stix/stix-7.svg"
     },
     {
       "value": 8,
-      "preview": "./assets/stix/stix-small-8.png"
+      "preview": "./assets/stix/stix-small-8.png",
+      "image": "./assets/stix/stix-8.svg"
     },
     {
       "value": 9,
-      "preview": "./assets/stix/stix-small-9.png"
+      "preview": "./assets/stix/stix-small-9.png",
+      "image": "./assets/stix/stix-9.svg"
     },
     {
       "value": 10,
-      "preview": "./assets/stix/stix-small-10.png"
+      "preview": "./assets/stix/stix-small-10.png",
+      "image": "./assets/stix/stix-10.svg"
     },
     {
       "value": 11,
-      "preview": "./assets/stix/stix-small-11.png"
+      "preview": "./assets/stix/stix-small-11.png",
+      "image": "./assets/stix/stix-11.svg"
     },
     {
       "value": 12,
-      "preview": "./assets/stix/stix-small-12.png"
+      "preview": "./assets/stix/stix-small-12.png",
+      "image": "./assets/stix/stix-12.svg"
     },
     {
       "value": 14,
-      "preview": "./assets/stix/stix-small-14.png"
+      "preview": "./assets/stix/stix-small-14.png",
+      "image": "./assets/stix/stix-14.svg"
     },
     {
       "value": 15,
-      "preview": "./assets/stix/stix-small-15.png"
+      "preview": "./assets/stix/stix-small-15.png",
+      "image": "./assets/stix/stix-15.svg"
     },
     {
       "value": 16,
-      "preview": "./assets/stix/stix-small-16.png"
+      "preview": "./assets/stix/stix-small-16.png",
+      "image": "./assets/stix/stix-16.svg"
     },
     {
       "value": 17,
-      "preview": "./assets/stix/stix-small-17.png"
+      "preview": "./assets/stix/stix-small-17.png",
+      "image": "./assets/stix/stix-17.svg"
     },
     {
       "value": 18,
-      "preview": "./assets/stix/stix-small-18.png"
+      "preview": "./assets/stix/stix-small-18.png",
+      "image": "./assets/stix/stix-18.svg"
     }
   ],
   "setupDefaults": {

@@ -40,7 +40,8 @@ import {
   ForgotPage,
   SettingsPage,
   ClientPage,
-  TeethPage
+  TeethPage,
+  BleedPage
 } from "../pages";
 import {Variables} from "./variables";
 import {AuthGuard, ClientGuard} from "../guards";
@@ -64,7 +65,8 @@ import {MomentModule} from "angular2-moment";
     SettingsPage,
     ClientPage,
     TeethPage,
-    TeethCrossComponent
+    TeethCrossComponent,
+    BleedPage
   ],
   imports: [
     BrowserModule,

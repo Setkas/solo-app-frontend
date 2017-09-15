@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ClientProvider} from "../../providers/client-provider";
 import {TermProvider} from "../../providers/term-provider";
 import {FlashProvider} from "../../components/flash-component/flash-provider";
 import {TranslateService} from "@ngx-translate/core";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'teeth-page',
@@ -12,26 +13,34 @@ import {TranslateService} from "@ngx-translate/core";
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class TeethPage implements OnInit {
+export class TeethPage implements OnInit, OnDestroy {
   public selectedTooth: number = null;
 
   public selectNext: boolean = false;
 
   public teethData: string[] = [];
 
+  private subs: Subscription[] = [];
+
   constructor(public client: ClientProvider,
               private term: TermProvider,
               private flash: FlashProvider,
               private translate: TranslateService) {
-    this.term.$onLoad.subscribe(() => {
+    this.subs.push(this.term.$onLoad.subscribe(() => {
       this.teethData = this.term.activeTerm.teeth;
-    });
+    }));
   }
 
   ngOnInit() {
     if (this.term.activeTerm) {
       this.teethData = this.term.activeTerm.teeth;
     }
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((sub: Subscription) => {
+      sub.unsubscribe();
+    });
   }
 
   public setTooth(to: string) {
