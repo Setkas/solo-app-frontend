@@ -23,7 +23,7 @@
 
   <div class="col-12 col-md-4">
     <button class="btn btn-primary btn-block"
-            (click)="showPass()">
+            (click)="showPass(passContent)">
       {{"notes.CLIENT_PASS"| translate}}
     </button>
   </div>
@@ -100,3 +100,33 @@
     </div>
   </div>
 </div>
+
+<ng-template #passContent
+             let-c="close">
+  <div class="modal-header bg-primary">
+    <h4 class="modal-title">
+      {{"notes.CLIENT_PASS"| translate}}
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <img class="pass-preview-image"
+         [src]="passImage">
+  </div>
+
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-primary"
+            (click)="sendPassEmail()">
+      <i class="ion ion-md-send"></i>
+
+      {{"notes.SEND_TO_EMAIL"| translate}}
+    </button>
+
+    <button type="button"
+            class="btn btn-primary"
+            (click)="c()">
+      {{"general.CLOSE"| translate}}
+    </button>
+  </div>
+</ng-template>

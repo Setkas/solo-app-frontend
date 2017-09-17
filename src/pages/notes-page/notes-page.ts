@@ -7,6 +7,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {PracticeProvider} from "../../providers/practice-provider";
 import * as Moment from "moment";
 import {SetupProvider} from "../../providers/setup-provider";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {LoaderProvider} from "../../components/loader-component/loader-provider";
 
 @Component({
   selector: 'notes-page',
@@ -30,7 +32,9 @@ export class NotesPage implements OnInit, OnDestroy {
               public practice: PracticeProvider,
               private setup: SetupProvider,
               private flash: FlashProvider,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private ngbModal: NgbModal,
+              private loader: LoaderProvider) {
     this.subs.push(this.term.$onLoad.subscribe(() => {
       this.loadData();
     }));
@@ -102,10 +106,43 @@ export class NotesPage implements OnInit, OnDestroy {
     console.debug("@TODO");
   }
 
-  public showPass(): void {
+  public showPass(content): void {
+    this.loader.show();
+
     this.term.loadPass().then((image: string) => {
       this.passImage = image;
+
+      this.ngbModal.open(content, {
+        size: "lg",
+        backdrop: "static"
+      });
+
+      setTimeout(() => {
+        this.loader.hide();
+      }, 0);
     }, (err: string) => {
+      this.loader.hide();
+
+      this.flash.show({
+        content: this.translate.instant("error." + err),
+        type: "danger"
+      });
+    });
+  }
+
+  public sendPassEmail(): void {
+    this.loader.show();
+
+    this.term.sendPass().then(() => {
+      this.loader.hide();
+
+      this.flash.show({
+        content: this.translate.instant("notes.TERM_EMAIL_SENT"),
+        type: "success"
+      });
+    }, (err: string) => {
+      this.loader.hide();
+
       this.flash.show({
         content: this.translate.instant("error." + err),
         type: "danger"

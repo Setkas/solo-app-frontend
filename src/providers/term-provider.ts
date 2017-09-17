@@ -179,10 +179,14 @@ export class TermProvider {
 
   public loadPass(): Promise<string> {
     return new Promise((resolve: (image: string) => void, reject: (err: string) => void) => {
-      if (!this.client.details || !this.activeTerm || !this.activeTerm.id) {
+      if (!this.client.details) {
         reject("NO_CLIENT_SELECTED");
+      } else if (!this.activeTerm && this.termHistory.length === 0 && !this.activeTerm.id) {
+        reject("NO_TERM_ACTIVE");
       } else {
-        this.http.get<{code: number, message: string, data: string}>(Variables.apiUrl + "/term-image/" + encodeURIComponent(this.client.details.id.toString()) + "/" + encodeURIComponent(this.activeTerm.id.toString()), {
+        let id: number = this.activeTerm.id || this.termHistory[0].id;
+
+        this.http.get<{code: number, message: string, data: string}>(Variables.apiUrl + "/term-image/" + encodeURIComponent(this.client.details.id.toString()) + "/" + encodeURIComponent(id.toString()), {
           headers: this.auth.appendHeader()
         }).subscribe((data: {code: number, message: string, data: string}) => {
           LoggerProvider.Log("[TERM]: Loaded client pass for selected client.");
@@ -193,7 +197,35 @@ export class TermProvider {
 
           let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
 
-          LoggerProvider.Error("[TERM]:Could not load client pass for selected client.");
+          LoggerProvider.Error("[TERM]: Could not load client pass for selected client.");
+
+          reject(msg);
+        });
+      }
+    });
+  }
+
+  public sendPass(): Promise<void> {
+    return new Promise<void>((resolve: () => void, reject: (err: string) => void) => {
+      if (!this.client.details) {
+        reject("NO_CLIENT_SELECTED");
+      } else if (!this.activeTerm && this.termHistory.length === 0 && !this.activeTerm.id) {
+        reject("NO_TERM_ACTIVE");
+      } else {
+        let id: number = this.activeTerm.id || this.termHistory[0].id;
+
+        this.http.post<void>(Variables.apiUrl + "/term-email/" + encodeURIComponent(this.client.details.id.toString()) + "/" + encodeURIComponent(id.toString()), {}, {
+          headers: this.auth.appendHeader()
+        }).subscribe(() => {
+          LoggerProvider.Log("[TERM]: Sent client pass to email for selected client.");
+
+          resolve();
+        }, (error: HttpErrorResponse) => {
+          this.auth.handleHttpError(error);
+
+          let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
+
+          LoggerProvider.Error("[TERM]: Could not send client pass for selected client.");
 
           reject(msg);
         });

@@ -11,7 +11,8 @@
     "SAVE": "Save",
     "YES": "Yes",
     "NO": "No",
-    "SOLO": "Solo"
+    "SOLO": "Solo",
+    "ERROR": "Error"
   },
   "menu": {
     "CLIENT": "Client",
@@ -153,7 +154,9 @@
     "LJ": "LJ",
     "NOTE_FOR": "Note for",
     "NEXT_TERM": "Next Examination",
-    "SEND_CLIENT_CHANGES": "Send client changes to system email"
+    "SEND_CLIENT_CHANGES": "Send client changes to system email",
+    "TERM_EMAIL_SENT": "Client pass was successfully sent to client's email address.",
+    "SEND_TO_EMAIL": "Send to Email"
   },
   "genders": {
     "MALE": "Male",
@@ -188,6 +191,7 @@
     "SELECT_CLIENT_ERROR": "Could not select client.",
     "CLIENT_UPDATE_ERROR": "Could not update client data.",
     "NO_CLIENT_SELECTED": "Could not load data, no client selected.",
-    "TERM_IMAGE_LOAD_FAILED": "Could not load term image for selected client."
+    "TERM_IMAGE_LOAD_FAILED": "Could not load term image for selected client.",
+    "NO_TERM_ACTIVE": "Cannot load data, no term active."
   }
 }
