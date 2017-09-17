@@ -23,6 +23,10 @@ client-page {
       text-align: center;
       color: color(primary);
 
+      &:nth-child(2) {
+        font-weight: bold;
+      }
+
       + .history-row {
         margin-top: 0.25em;
         padding-top: 0.25em;

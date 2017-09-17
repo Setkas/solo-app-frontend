@@ -8,3 +8,4 @@ export * from "./client-page/client-page";
 export * from "./teeth-page/teeth-page";
 export * from "./bleed-page/bleed-page";
 export * from "./therapy-page/therapy-page";
+export * from "./notes-page/notes-page";

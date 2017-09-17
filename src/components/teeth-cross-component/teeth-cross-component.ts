@@ -34,6 +34,8 @@ export class TeethCrossComponent implements OnInit, OnChanges {
 
   @Input() public stix: boolean = false;
 
+  @Input() public stixDisplay: boolean = false;
+
   @Input() private teethData: string[] = [];
 
   @Input() private stixData: number[] = [];
@@ -240,6 +242,10 @@ export class TeethCrossComponent implements OnInit, OnChanges {
   }
 
   public setStix(index: number): void {
+    if (this.stixData === null || this.stixData.length < index || this.stixDisplay === true) {
+      return;
+    }
+
     this.$stixSelected.emit(index);
   }
 }

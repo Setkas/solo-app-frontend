@@ -1,0 +1,102 @@
+<h1 class="h2 text-uppercase">
+  {{client.details?.surname}} {{client.details?.name}}
+
+  <small *ngIf="client.details && client.details.birth_date"
+         class="text-muted text-capitalize">
+    {{client.details.birth_date| amDateFormat:"MMMM Do YYYY"}}
+  </small>
+</h1>
+
+<div *ngIf="termData !== null"
+     class="row">
+  <div class="col-12 col-md-8 form-group">
+    <input type="date"
+           name="next_date_edit"
+           class="form-control"
+           placeholder="YYYY-MM-DD"
+           pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
+           [(ngModel)]="termData.next_date"
+           [placeholder]="'notes.NEXT_TERM'| translate"
+           [required]="true"
+           (blur)="saveChanges('next_date')">
+  </div>
+
+  <div class="col-12 col-md-4">
+    <button class="btn btn-primary btn-block"
+            (click)="showPass()">
+      {{"notes.CLIENT_PASS"| translate}}
+    </button>
+  </div>
+</div>
+
+<teeth-cross-component *ngIf="termData !== null"
+                       [interactive]="false"
+                       [teeth]="false"
+                       [bleeding]="false"
+                       [stix]="true"
+                       [stixData]="termData.stix"
+                       [stixDisplay]="true"
+                       [teethData]="termData.teeth"></teeth-cross-component>
+
+<div *ngIf="termData !== null"
+     class="row">
+  <div class="col-12 text-uppercase tartar-block">
+    <span>
+      {{"notes.TARTAR"| translate}}:
+    </span>
+
+    <span class="ml-3">
+      {{"notes.UJ"| translate}}
+    </span>
+
+    <button class="btn btn-sm btn-outline-primary tartar-toggle disabled"
+            [ngClass]="{'active': termData.tartar[0] === true}">
+      <i class="ion"
+         [ngClass]="{'ion-md-checkmark': termData.tartar[0] === true, 'ion-md-close': termData.tartar[0] !== true}"></i>
+    </button>
+
+    <span class="ml-2">
+      {{"notes.LJ"| translate}}
+    </span>
+
+    <button class="btn btn-sm btn-outline-primary tartar-toggle disabled"
+            [ngClass]="{'active': termData.tartar[1] === true}">
+      <i class="ion"
+         [ngClass]="{'ion-md-checkmark': termData.tartar[1] === true, 'ion-md-close': termData.tartar[1] !== true}"></i>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="termData !== null"
+     class="row mt-2">
+  <div class="col-12 form-group">
+    <textarea class="form-control"
+              name="note"
+              rows="5"
+              [(ngModel)]="termData.note"
+              [placeholder]="('notes.NOTE_FOR'| translate) + ' ' + (termData.date| amDateFormat:'MMMM Do YYYY')"
+              (blur)="saveChanges('note')"></textarea>
+  </div>
+</div>
+
+<button *ngIf="practice.details !== null && practice.details.system_email && practice.details.system_email.length > 0 && isChange()"
+        class="btb btn-outline-primary"
+        (click)="sendChanges()">
+  <i class="ion ion-md-send"></i>
+
+  {{"notes.SEND_CLIENT_CHANGES"| translate}}
+</button>
+
+<div *ngIf="termHistory.length > 0"
+     class="term-history">
+  <div *ngFor="let termListData of termHistory"
+       class="row align-items-center">
+    <div class="col-12 col-md-3 text-center text-uppercase">
+      {{termListData.date| amDateFormat:"MMMM Do YYYY"}}
+    </div>
+
+    <div class="col-12 col-md-9 text-justify">
+      {{termListData.note}}
+    </div>
+  </div>
+</div>

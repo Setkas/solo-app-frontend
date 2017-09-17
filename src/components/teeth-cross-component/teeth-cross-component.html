@@ -29,6 +29,7 @@
 
     <div *ngIf="stix === true && index !== 0 && setHideItem(index, true) === false"
          class="stix-box"
+         [ngClass]="{'inactive': stixDisplay === true}"
          (click)="setStix(index - 1)">
       <img [src]="stixImageSrc(index - 1)">
     </div>
@@ -66,6 +67,7 @@
 
     <div *ngIf="stix === true && index !== 31 && setHideItem(index, true) === false"
          class="stix-box reverse"
+         [ngClass]="{'inactive': stixDisplay === true}"
          (click)="setStix(index - 1)">
       <img [src]="stixImageSrc(index - 1)">
     </div>

@@ -146,6 +146,15 @@
     "ORAL": "Oral",
     "BUCCAL": "Buccal"
   },
+  "notes": {
+    "CLIENT_PASS": "Client Pass",
+    "TARTAR": "Tartar",
+    "UJ": "UJ",
+    "LJ": "LJ",
+    "NOTE_FOR": "Note for",
+    "NEXT_TERM": "Next Examination",
+    "SEND_CLIENT_CHANGES": "Send client changes to system email"
+  },
   "genders": {
     "MALE": "Male",
     "FEMALE": "Female"
@@ -178,6 +187,7 @@
     "CLIENT_CREATION_ERROR": "Could not create new client.",
     "SELECT_CLIENT_ERROR": "Could not select client.",
     "CLIENT_UPDATE_ERROR": "Could not update client data.",
-    "NO_CLIENT_SELECTED": "Could not load data, no client selected."
+    "NO_CLIENT_SELECTED": "Could not load data, no client selected.",
+    "TERM_IMAGE_LOAD_FAILED": "Could not load term image for selected client."
   }
 }

@@ -1,0 +1,47 @@
+@import "../../themes/imports";
+
+notes-page {
+  .tartar-block {
+    line-height: 2em;
+
+    .tartar-toggle {
+      padding: 0.25em 0.5em;
+      line-height: 1em;
+      vertical-align: middle;
+    }
+
+    > span {
+      vertical-align: middle;
+    }
+  }
+
+  textarea[name="note"] {
+    resize: none;
+  }
+
+  .term-history {
+    border: ($border-size * 2) solid color(primary);
+    color: color(primary);
+    padding: 0.5em calc(0.5em + 15px);
+    @include border-radius(0.3rem);
+
+    > .row {
+      > div {
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+
+        &:first-child {
+          font-weight: bold;
+        }
+
+        &:last-child {
+          border-left: ($border-size * 2) solid color(primary);
+        }
+      }
+
+      + .row {
+        border-top: ($border-size * 2) solid color(primary);
+      }
+    }
+  }
+}

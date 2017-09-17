@@ -8,6 +8,7 @@ import {TermDataInterface, TermProvider} from "../../providers/term-provider";
 import {SetupProvider} from "../../providers/setup-provider";
 import {UtilsProvider} from "../../providers/utils-provider";
 import {Subscription} from "rxjs/Subscription";
+import * as Moment from "moment";
 
 @Component({
   selector: 'client-page',
@@ -115,7 +116,7 @@ export class ClientPage implements OnInit, OnDestroy {
     this.termHistory = [];
 
     this.term.termHistory.forEach((data: TermDataInterface, index: number) => {
-      if (index > 0 && index <= this.setup.current.client_history) {
+      if (this.termHistory.length <= this.setup.current.client_history && !Moment().isSame(Moment.utc(data.date), "d")) {
         this.termHistory.push({
           name: this.translate.instant("general.SOLO") + "-" + (this.term.termHistory.length - index),
           bob: UtilsProvider.CountBob(data.teeth, data.bleed_middle).join("|"),

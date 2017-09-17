@@ -82,7 +82,7 @@ export class AppComponent {
       this.client.$onSelected.subscribe(() => {
         this.term.get().then((data: TermDataInterface[]) => {
           if (data.length > 0) {
-            this.term.activeTerm = JSON.parse(JSON.stringify(data[0]));
+            this.term.activeTerm = this.term.generateTerm(data[0]);
 
             this.term.termHistory = data;
 

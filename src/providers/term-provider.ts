@@ -83,7 +83,7 @@ export class TermProvider {
 
           resolve(res.data);
         }, (error: HttpErrorResponse) => {
-          //this.auth.handleHttpError(error);
+          this.auth.handleHttpError(error);
 
           let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
 
@@ -115,7 +115,7 @@ export class TermProvider {
 
           resolve(res.data);
         }, (error: HttpErrorResponse) => {
-          //this.auth.handleHttpError(error);
+          this.auth.handleHttpError(error);
 
           let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
 
@@ -177,6 +177,30 @@ export class TermProvider {
     });
   }
 
+  public loadPass(): Promise<string> {
+    return new Promise((resolve: (image: string) => void, reject: (err: string) => void) => {
+      if (!this.client.details || !this.activeTerm || !this.activeTerm.id) {
+        reject("NO_CLIENT_SELECTED");
+      } else {
+        this.http.get<{code: number, message: string, data: string}>(Variables.apiUrl + "/term-image/" + encodeURIComponent(this.client.details.id.toString()) + "/" + encodeURIComponent(this.activeTerm.id.toString()), {
+          headers: this.auth.appendHeader()
+        }).subscribe((data: {code: number, message: string, data: string}) => {
+          LoggerProvider.Log("[TERM]: Loaded client pass for selected client.");
+
+          resolve(data.data);
+        }, (error: HttpErrorResponse) => {
+          this.auth.handleHttpError(error);
+
+          let msg: string = (error && error.error && error.error.message) ? error.error.message : null;
+
+          LoggerProvider.Error("[TERM]:Could not load client pass for selected client.");
+
+          reject(msg);
+        });
+      }
+    });
+  }
+
   public generateEmpty(): TermDataInterface {
     if (!this.client.details) {
       return null;
@@ -202,7 +226,7 @@ export class TermProvider {
     return {
       id: null,
       client_id: this.client.details.id,
-      date: Moment().toISOString(),
+      date: Moment().format("YYYY-MM-DD"),
       teeth: JSON.parse(JSON.stringify(teeth)),
       bleed_inner: JSON.parse(JSON.stringify(bleed)),
       bleed_outer: JSON.parse(JSON.stringify(bleed)),
@@ -213,8 +237,42 @@ export class TermProvider {
         false,
         false
       ],
-      next_date: Moment().add(1, "month").toISOString(),
+      next_date: Moment().add(1, "month").format("YYYY-MM-DD"),
       note: ""
     };
+  }
+
+  public generateTerm(term: TermDataInterface): TermDataInterface {
+    let data: TermDataInterface = null;
+
+    if (term) {
+      let src: TermDataInterface = JSON.parse(JSON.stringify(term));
+
+      if (Moment(term.date).isSame(Moment(), 'd')) {
+        data = src;
+      } else {
+        data = this.generateEmpty();
+
+        data.bleed_inner = src.bleed_inner;
+
+        data.bleed_middle = src.bleed_middle;
+
+        data.bleed_outer = src.bleed_outer;
+
+        data.teeth = src.teeth;
+
+        data.stix = src.stix;
+
+        data.pass = src.pass;
+
+        data.tartar = src.tartar;
+      }
+    }
+
+    if (data === null) {
+      data = this.generateEmpty();
+    }
+
+    return data;
   }
 }

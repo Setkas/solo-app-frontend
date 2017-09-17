@@ -146,6 +146,10 @@ teeth-cross-component {
           bottom: 0.25em;
         }
 
+        &.inactive {
+          cursor: default;
+        }
+
         > img {
           display: block;
           max-width: 100%;
